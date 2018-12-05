@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas</title>
+</head>
+<body>
+	<canvas id="canvas" width="800", height="600">your browser do not support canvas.</canvas>
+
+	<script>
+		function degreeToArc(deg) {
+			return deg*Math.PI/180;
+		}
+		function arcToDegree(arc) {
+			return arc*180/Math.PI;
+		}
+		let canvas = document.getElementById('canvas');
+		let gd = canvas.getContext('2d');
+
+		gd.arc(300, 300, 100, 0, degreeToArc(360), true);
+		gd.strokeStyle = '#f30';
+		gd.stroke();
+
+		gd.fillStyle = '#0f0';
+		gd.fill();
+	</script>
+</body>
+</html>

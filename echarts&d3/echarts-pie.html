@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>echarts</title>
+	<style>
+		.box {
+			width: 800px;
+			height: 600px;
+			border: 1px solid #000;
+		}
+	</style>
+	<script src="./echarts.js"></script>
+</head>
+<body>
+	<div class="box"></div>
+
+	<script>
+		function $(selector) {
+			return document.getElementsByClassName(selector);
+		}
+		let box = $('box')[0];
+		let options = {
+			title: {
+				text: '学历分布',
+				subtext: '2017年',
+				textStyle: {
+					color: 'red',
+					align: 'center'
+				},
+				x: 'center',
+				left: 'center'
+			},
+			legend: {
+				data: ['小学', '中学','大专', '本科', '硕士', '博士', '男', '女'],
+				// type: 'plain',
+				right: 20,
+				orient: 'vertical'
+			},
+			series: [
+				{
+					name: '学历比例',
+					type: 'pie',
+					radius: '40%',
+					center: ['30%', '40%'],
+					data: [
+						{name: '小学',value: '350'},
+						{name: '中学',value: '1530'},
+						{name: '大专',value: '1000'},
+						{name: '本科',value: '1234'},
+						{name: '硕士',value: '820'},
+						{name: '博士',value: '259'}
+					],
+					animationDelay: function (idx) {
+						return idx * 10;
+					}
+				},
+				{
+					name: '男女比例',
+					type: 'pie',
+					radius: ['20%', '40%'],
+					center: ['70%', '40%'],
+					data: [{name: '男',value: 1200},{name: '女',value: 1000}]
+				}
+			],
+			animationEasing: 'elasticOut',
+			animationDelayUpdate: function(idx) {
+				return idx * 100;
+			}
+		};
+		let charts = echarts.init(box);
+		charts.setOption(options);
+	</script>
+</body>
+</html>

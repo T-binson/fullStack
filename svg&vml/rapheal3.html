@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>hover</title>
+</head>
+<body>
+	<script src="./raphael.js"></script>
+	<script>
+		var paper = Raphael(0,0, 800,600);
+		var path = paper.path('M 100 100 L 400 100 400 300 100 300 Z');
+		path.attr('fill', '#f40');
+		path.hover(function() {
+			this.attr('fill', 'pink');
+		}, function() {
+			this.attr('fill', '#f40');
+		});
+		setTimeout(function() {
+			path.unhover();
+			
+		}, 2000);
+	</script>
+</body>
+</html>

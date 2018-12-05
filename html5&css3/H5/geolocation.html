@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>geolocation</title>
+	<script>
+		window.onload = function() {
+			var locate = document.getElementById('locate');
+			locate.onclick = function() {
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition((geo) => {
+						console.log(geo);
+					}, (err) => {
+						alert('failed', err);
+					}, {
+						// enablHighAccuracy: , //gaojingdu
+						timeout: 5000//chaoshi
+						// maximumAge:  //huancun
+					});
+				} else {
+					alert('your browser do not support geolocation');
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<input type="button" name="" value="locate" id="locate">
+</body>
+</html>

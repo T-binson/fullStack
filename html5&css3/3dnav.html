@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>3dnav</title>
+	<style>
+		ul {
+			width: 400px;
+			height: 40px;
+			margin: 20px auto;
+		}
+		li {
+			float: left;
+			position: relative;
+			list-style-type: none;
+			width: 80px;
+			height: 40px;
+			transform-style: preserve-3d;
+			transition: all 1s;
+		}
+		li:nth-child(2) {
+			transition-delay: .2s;
+		}
+		li:nth-child(3) {
+			transition-delay: .4s;
+		}
+		li:nth-child(4) {
+			transition-delay: .6s;
+		}
+		li:nth-child(5) {
+			transition-delay: .8s;
+		}
+		li span {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			line-height: 40px;
+			text-align: center;
+		}
+		li span:first-child {
+			transform: translateZ(20px);
+			background-color: green;
+		}	
+		li span:last-child {
+			transform: rotateX(90deg) translateZ(20px);
+			background-color: yellow;
+		}
+		ul:hover li {
+			transform:rotateX(-90deg);
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li><span>传智播客</span><span>web前端</span></li>
+		<li><span>传智播客</span><span>web前端</span></li>
+		<li><span>传智播客</span><span>web前端</span></li>
+		<li><span>传智播客</span><span>web前端</span></li>
+		<li><span>传智播客</span><span>web前端</span></li>
+	</ul>
+</body>
+</html>

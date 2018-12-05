@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>mypromise</title>
+	<script>
+		class Mypromise {
+			constructor(fn) {
+				this._succ = null;
+				this._error = null;
+				this.status = '';
+				this.queue = [];
+				let that = this;
+				fn(function(...arg) {
+					that._succ = arg;
+					that.status = 'succ';
+					that.queue.forEach(json => {
+						json.fn1(...arg);
+					})
+				}, function(...arg) {
+					that._error = arg;
+					that.status = 'error';
+					that.queue.forEach(json => {
+						json.fn2(...arg);
+					})
+				})
+			}
+			then(fn1, fn2) {
+				if (this.status === 'succ') {
+					fn1(this._succ)
+				} else if(this.status === 'error') {
+					fn2(this._error)
+				} else {
+					this.queue.push({fn1, fn2});
+				}
+			}
+		}
+		Mypromise.all = function(arr) {
+			let result = [];
+			return new Mypromise(function(resolve, reject) {
+				let i = 0;
+				next();
+				function next() {
+					//此处arr[i]为$.ajax({...}),因此返回值为jqXHR对象，含有then方法
+					arr[i].then(function(res) {
+						result.push(res);
+						i++;
+						if (i === arr.length) {
+							resolve(result);
+						} else {
+							next();
+						}
+					}, reject)
+				}
+			})
+		};
+
+		new Mypromise(function(resolve, reject) {
+			if (true) {
+				resolve(...arg)
+			} else {
+				reject(...arg)
+			}
+		}).then(function(...arg) {}, function(...arg) {});
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

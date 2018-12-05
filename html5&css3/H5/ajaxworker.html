@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>webworker</title>
+	<script>
+		window.onload = function () {
+			var btn = document.getElementById('btn');
+			btn.onclick = function() {
+				var worker = new Worker('ajaxworker.js');
+				worker.onmessage = function(ev) {
+					console.log(ev, ev.data);
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<p><input type="button" value="calc" id="btn"></p>
+</body>
+</html>

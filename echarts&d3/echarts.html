@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>echarts</title>
+	<style>
+		.box {
+			width: 800px;
+			height: 600px;
+			border: 1px solid #000;
+		}
+	</style>
+	<script src="./echarts.js"></script>
+</head>
+<body>
+	<div class="box"></div>
+
+	<script>
+		function $(selector) {
+			return document.getElementsByClassName(selector);
+		}
+		let box = $('box')[0];
+		let options = {
+			title: {
+				text: 'beijing population',
+				subtext: '2017(unit: wan)',
+				textStyle: {
+					color: 'red',
+					align: 'center'
+				},
+				left: 'center'
+			},
+			legend: {
+				data: ['male', 'female'],
+				// type: 'plain',
+				right: 20,
+				orient: 'vertical'
+			},
+			xAxis: [{
+				type: 'category',
+				data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+			}],
+			yAxis: [{
+				type: 'value'
+			}],
+			series: [
+				{
+					name: 'male',
+					type: 'bar',
+					data: [800, 200, 500, 800, 945, 950, 883, 872,920,955,1000,961],
+					animationDelay: function (idx) {
+						return idx * 10;
+					}
+				},
+				{
+					name: 'female',
+					type: 'bar',
+					data: [425, 130, 442, 402, 500, 482, 502, 340, 411, 439, 500, 320],
+					animationDelay: function(idx) {
+						return idx * 10 + 100;
+					}
+				}
+			],
+			animationEasing: 'elasticOut',
+			animationDelayUpdate: function(idx) {
+				return idx * 100;
+			}
+		};
+		let charts = echarts.init(box);
+		charts.setOption(options);
+	</script>
+</body>
+</html>

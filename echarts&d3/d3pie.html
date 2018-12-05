@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="./d3.v5.js"></script>
+</head>
+<body>
+	<script>
+		let data = [{
+			name: 'failed',
+			value: 45
+		},{
+			name: 'pass',
+			value: 123
+		},{
+			name: 'good',
+			value: 32
+		},{
+			name: 'excellent',
+			value: 12
+		}];
+		// let colors = ['#fc0', '#0f0', '#00f', '#a45'];
+		let random = d3.randomUniform(0, 255);
+		let pie = d3.pie().value(item => item.value).padAngle(3*Math.PI/180);
+		let pieres = pie(data);
+		// console.log(pieres);
+		let arc = d3.arc().innerRadius(70).outerRadius(100);
+		let svg = d3.select('body')
+								.append('svg')
+								.attr('width', 800)
+								.attr('height', 600)
+								.style('border', '1px solid #000');
+		let group = svg.append('g');
+		let arcres = pieres.map((item, index) => {
+			group.append('path')
+				 .attr('d', arc(item))
+				 // .attr('stroke', 'red')
+				 .attr('fill', d3.rgb(random(), random(), random()))
+		});
+		group.attr('transform', 'translate(400, 300) rotate(30)');
+		// console.log(arcres);
+	</script>
+</body>
+</html>

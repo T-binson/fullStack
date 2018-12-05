@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>verify code</title>
+</head>
+<body>
+	<form action="/reg" method="get">
+		username: <input type="text" name="user"><br />
+		password: <input type="password" name="pass"><br />
+		<span>verify code</span>
+		<input type="text" name="verify">
+		<img src="/verify_code?w=100&h=60" alt="" onclick="this.src='/verify_code?w=100&h=60&='+ Math.random()"><br />
+		<input type="submit" name="" value="sign in">
+	</form>
+</body>
+</html>

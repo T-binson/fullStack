@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>webworker</title>
+	<script>
+		window.onload = function () {
+			var txt1 = document.getElementById('txt1');
+			var txt2 = document.getElementById('txt2');
+			var btn = document.getElementById('btn');
+			btn.onclick = function() {
+				var n1 = txt1.value, n2 = txt2.value;
+				var worker = new Worker('worker.js');
+				worker.postMessage({n1, n2});
+				worker.onmessage = function(ev) {
+					console.log(ev, ev.data);
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<input type="text" id="txt1"> <input type="text" id="txt2">
+	<p><input type="button" value="calc" id="btn"></p>
+</body>
+</html>

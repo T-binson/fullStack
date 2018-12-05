@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>cat-fish</title>
+	<style>
+		body {
+			background: #000;
+			text-align: center;
+		}
+		#c1 {
+			background: url(img/game_bg_2_hd.jpg) no-repeat center center;
+		}
+	</style>
+	<script src="./js/common.js"></script>
+	<script src="./js/drawRect.js"></script>
+	<script src="./js/sprite.js"></script>
+	<script src="./js/fish.js"></script>
+	<script src="./js/cannon.js"></script>
+	<script src="./js/button.js"></script>
+	<script src="./js/bullet.js"></script>
+	<script src="./js/coin.js"></script>
+	<script>
+		window.onload = function () {
+			let canvas = document.getElementById('c1');
+			let gd = canvas.getContext('2d');
+			/*loadImgs(_resource, function(imgs) {
+				// alert('loaded completly');
+				let w = 55, h = 37, x = 200, y = 150;
+				let fish1 = new Sprite(imgs.fish1, w, h);
+				fish1.x = x, fish1.y = y;
+				// let timer = null;
+				// clearInterval(timer);
+				let count = 0, tick = 0;
+				setInterval(() => {
+					tick++;
+					gd.clearRect(0,0, canvas.width, canvas.height);
+					// fish1.rotation++;
+					fish1.sy = fish1.height * count;
+					fish1.x++;
+					fish1.draw(gd);
+					if (tick === 10) {
+						tick = 0;
+						count++
+						if (count > 3) {
+							count = 0;
+						}
+					}
+				}, 16);
+				let fish1 = new Fish(5);
+				fish1.x = 0, fish1.y = 150;
+				let tick = 0;
+				function animate() {
+					requestAnimationFrame(animate);
+					gd.clearRect(0, 0, canvas.width, canvas.height);
+					fish1.x++;
+					fish1.draw(gd);
+					tick++;
+					if (tick === 8) {
+						tick = 0;
+						fish1.nextFrame();
+					}
+				}
+				requestAnimationFrame(animate);
+			});*/
+			loadImgs(_resource, function(imgs) {
+				let tower = new Sprite(new DrawRect(imgs.tower, 0, 0, 765, 71));
+				tower.x = 400, tower.y = canvas.height - 71/2 + 1;
+
+				let cannon = new Cannon(1);
+				cannon.x = 443, cannon.y = 569;
+				canvas.onmousemove = function(e) {
+					let a = e.offsetX - cannon.x;
+					let b = e.offsetY - cannon.y;
+					let ang = a2d(Math.atan2(b, a)) + 90;
+					cannon.rotation = ang;
+				};
+
+				//加号、减号
+				let btnMius = new Button(new DrawRect(imgs.tower, 135, 75, 36, 28), new DrawRect(imgs.tower, 91, 75, 36, 28));
+				btnMius.x = 371, btnMius.y = 566;
+				let btnPlus = new Button(new DrawRect(imgs.tower, 47, 75, 36, 28), new DrawRect(imgs.tower, 3, 75, 36, 28));
+				btnPlus.x = 516, btnPlus.y = 566;
+				//chang the cannon
+				btnMius.onclick = function() {
+					if (cannon.type > 1) {
+						cannon.setType(cannon.type - 1)
+					} else {
+						cannon.setType(1);
+					}
+				};
+				btnPlus.onclick = function() {
+					if (cannon.type < 7) {
+						cannon.setType(cannon.type + 1)
+					} else {
+						cannon.setType(7);
+					}
+				};
+				let abtn = [btnMius, btnPlus];
+
+				let bullets = [], lastFire = 0, fire = false;
+				let fishes = [], maxFishes = 30, coins = [], coinCollection = {x: 106, y: 576}, scoreBoard = [], marks = 1000;
+				for (let i =0; i < 6; i++) {
+					let scb = new Sprite(new DrawRect(imgs.number,0, 24 * (9 - i), 20, 24));
+					//分数位置
+					scb.x = 47 + 23 * i;
+					scb.y = 586;
+					scoreBoard.push(scb);
+				};
+
+				canvas.onmousedown = function(e) {
+					abtn.forEach(btn => {
+						btn.down(e.offsetX, e.offsetY);
+					});
+					if (Date.now() - lastFire >= 100) {
+						lastFire = Date.now();
+						let bullet = new Bullet(cannon.type, cannon.x, cannon.y, cannon.rotation);
+						bullets.push(bullet);
+						//减去分数
+						marks -= cannon.type;
+						fire = true;
+					}
+				};
+				canvas.onmouseup = function(e) {
+					abtn.forEach(btn => {
+						btn.up(e.offsetX, e.offsetY);
+					});
+				};
+
+				function animate() {
+					requestAnimationFrame(animate);
+					if (rnd(1, 15) === 1 && fishes.length < maxFishes) {
+						let fish = new Fish(rnd(1, 5));
+						if (rnd(0, 2) === 0) {
+							fish.x = -100;
+							fish.rotation = 90;
+						} else {
+							fish.x = canvas.width + 100;
+							fish.rotation = -90;
+						}
+						fish.y = rnd(0, canvas.height - 100);
+						fishes.push(fish);
+					}
+					gd.clearRect(0, 0, canvas.width, canvas.height);
+					
+					coins = coins.filter(coin => {
+						coin.move(coinCollection.x, coinCollection.y);
+						coin.nextFrame();
+						coin.draw(gd);
+						if (Math.abs(coin.x - coinCollection.x) < 1 && Math.abs(coin.y - coinCollection.y) < 1) {
+							//记录分数
+							marks += 50;
+							return false;
+						} else {
+							return true;
+						}
+					});
+					// console.log(coins.length);
+					tower.draw(gd);
+					
+					//为了删除跑出画布外的子弹，使用filter,而不是forEach
+					bullets = bullets.filter(bullet => {
+						bullet.move();
+						bullet.draw(gd);
+						return bullet.outRect(-100, -100, canvas.width + 200, canvas.height + 200);
+					});
+					// console.log(bullets.length);
+					fishes = fishes.filter(fish => {
+						fish.move();
+						fish.nextFrame();
+						fish.draw(gd);
+						return fish.outRect(-100, -100, canvas.width + 200, canvas.height + 200);
+					});
+					// console.log(fishes.length);
+					if (fire) {
+						let ret = cannon.nextFrame();
+						if (ret) {
+							fire = false;
+						}
+					}
+					cannon.draw(gd);
+					btnMius.draw(gd);
+					btnPlus.draw(gd);
+
+					//bump test
+					fishes = fishes.filter(fish => {
+						let colled = false;
+						bullets = bullets.filter(bullet => {
+							if (!colled && fish.collTest(bullet)) {
+								if (Math.random() < bullet.type * 10 / ((fish.type -1) *20 + 10)) {
+									colled = true;
+								}
+								return false;
+							} else {
+								return true;
+							}
+						});
+						if (colled) {
+							/*let a = coinCollection.y - fish.y, b = coinCollection.x - fish.x;
+							//此时角度在累积过程中会存在误差，导致最后飞入时角度不一致
+							let ang = a2d(Math.atan2(a, b)) + 90;
+							let coin = new Coin(1, fish.x, fish.y, ang);*/
+							// let coin = new Coin(1, fish.x, fish.y);
+							// coins.push(coin);
+							// return false
+							fish.isDead = true;
+							fish.speed = 0;
+							setTimeout(function() {
+								let i = 0;
+								let timer = setInterval(() => {
+									let coin = new Coin(1, fish.x, fish.y);
+									coins.push(coin);
+									i++;
+									if (i === Math.pow(2, fish.type)) {
+										clearInterval(timer);
+									}
+								}, 50);
+
+								fishes = fishes.filter((item) => item !== fish);
+							}, 200);
+							return true;
+						} else {
+							return true;
+						}
+					});
+					//score
+					let str = marks + '';
+					while(str.length < 6) {
+						str = '0' + str;
+					}
+					scoreBoard.forEach((score, index) => {
+						score.setDrawRect(new DrawRect(imgs.number, 0, 24 * (9 - str[index]) , 20, 24))
+						score.draw(gd);
+					});
+				}
+				requestAnimationFrame(animate);
+			});
+		}
+	</script>
+</head>
+<body>
+	<canvas id="c1" width="800" height="600"></canvas>
+</body>
+</html>

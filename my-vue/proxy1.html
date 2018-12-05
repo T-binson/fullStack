@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>proxy</title>
+</head>
+<body>
+	<script>
+		let obj = {a: 3, b: 2};
+		let p = new Proxy(obj, {
+			get(target, property, proxy) {
+				console.log(target);
+				console.log(property);
+				console.log(proxy);
+			},
+			set(target, key, val, proxy) {
+				console.log(key);
+			},
+			has(target, key) {
+
+			},
+			deleteProperty(target, key) {
+				
+			}
+		});
+		console.log(p.a);
+	</script>
+</body>
+</html>

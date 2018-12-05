@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>hover</title>
+</head>
+<body>
+	<script src="./raphael.js"></script>
+	<script>
+		var paper = Raphael(0,0, 800,600);
+		var path = paper.path('M 100 100 L 400 100 400 300 100 300 Z');
+		path.attr('fill', '#f40');
+		path.click(function() {
+			// this.transform('r45'); //不兼容ie6，因此尽量用attr来设置
+			this.attr('transform', 'r30');
+		});
+	</script>
+</body>
+</html>

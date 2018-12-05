@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas</title>
+</head>
+<body>
+	<canvas id="canvas" width="800", height="600">your browser do not support canvas.</canvas>
+
+	<script>
+		let canvas = document.getElementById('canvas');
+		let gd = canvas.getContext('2d');
+
+		let x = 50, y = 50, w = 100, h = 50;
+		canvas.onmousemove = function(ev) {
+			gd.clearRect(x, y, w, h);
+			if (ev.offsetX >= x && ev.offsetX <= x+w && ev.offsetY >= h && ev.offsetY <= y+h) {
+				gd.strokeStyle = '#f40';
+				gd.strokeRect(x, y, w, h);
+			} else {
+				gd.strokeStyle = '#000';
+				gd.strokeRect(x, y, w, h);
+			}
+		}
+	</script>
+</body>
+</html>

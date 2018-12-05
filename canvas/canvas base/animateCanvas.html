@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas</title>
+</head>
+<body>
+	<canvas id="canvas" width="800", height="600">your browser do not support canvas.</canvas>
+
+	<script>
+		let canvas = document.getElementById('canvas');
+		let gd = canvas.getContext('2d');
+
+		let speed = 5;
+		setInterval(function() {
+			speed+=10;
+			gd.clearRect(0, 0, canvas.width, canvas.height);
+			gd.strokeRect(speed, 100, 100,100);
+		}, 16)
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>渐变矩形</title>
+</head>
+<body>
+	<canvas id="can"></canvas>
+
+	<script type="text/javascript">
+		var can = document.getElementById('can');
+		var ctx = can.getContext('2d');
+		can.width = 620;
+		can.height = 620;
+
+		ctx.beginPath();
+		ctx.moveTo(10,10);
+		ctx.lineTo(610,0);
+		ctx.lineTo(610,610);
+		ctx.lineTo(0,610);
+		ctx.closePath();
+		ctx.stroke();
+
+		for (var i = 0; i <= 255; i++) {
+			ctx.beginPath();
+			ctx.moveTo(20,20 + i);
+			ctx.lineTo(120,20 + i);
+			ctx.moveTo(120 + i,20);
+			ctx.lineTo(120 + i,120);
+			ctx.strokeStyle = "rgb("+i+",0,0)";
+			ctx.closePath();
+			ctx.stroke();
+		}
+
+		for (var i = 255;i; i--) {
+			ctx.beginPath();
+			ctx.moveTo(150,220 + i);
+			ctx.lineTo(250,220 + i);
+			ctx.strokeStyle = "rgb(0,"+Math.floor(255/i)+",0)";
+			ctx.closePath();
+			ctx.stroke();
+		}
+	</script>
+</body>
+</html>

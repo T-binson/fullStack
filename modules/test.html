@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test modules</title>
+	<script type="text/javascript" src="jQuery modules.js"></script>
+	<!-- <script type="text/javascript" src="jquery.min.js"></script> -->
+</head>
+<body>
+	<div><a href="">a0</a><a href="">a1</a><a href="">a2</a></div>
+	<span style="color: #f40;">abc</span>
+	<ul>
+		<li>li1</li>
+		<li>li2</li>
+		<li>li3</li>
+	</ul>
+	<script>
+		// var abc = $(undefined);
+		// var abcd = $(null);
+		// var abce = $(NaN);
+		// var abcf = $(0);
+		// var as = $('a');
+		// var span = document.querySelector('span');
+		// var lis = document.querySelectorAll('li');
+		// for(var i = 0,len = lis.length;i<len;i++) {
+		// 	if (i === 0) {
+		// 		// appendChild剪切黏贴的是span本体
+		// 		lis[i].appendChild(span);
+		// 	}else {
+		// 		// appendChild添加的是克隆体,cloneNode默认是false
+		// 		lis[i].appendChild(span.cloneNode(true));
+		// 	}
+			
+		// }
+		/*0:a0	li0:a0 a1 a2
+		1:a1	li1:a0.cloneNode a1.cloneNode a2.cloneNode
+		2:a2	li2:a0.cloneNode a1.cloneNode a2.cloneNode*/
+		// console.log($('a')._AppendTo('li'));
+		// console.log($('li')._prepend(document.createElement('span')).prepend('bbc'));
+	</script>
+
+	<script>
+	/*
+	*如何解析JSON
+	*1.JSON.parse
+	*2.eval
+	*3.Function
+	*/
+	var JSONstr = '{"name": "hello","age": 18}';
+	var JSONstr1 = '{'+'console.log("haha");'+'}';
+	// console.log(JSON.parse(JSONstr));//{name: "hello", age: 18}
+	// console.log(JSON.parse(JSONstr1));//error
+
+	// console.log(eval(JSONstr));//error
+	// console.log(eval(JSONstr1));//haha
+
+	// console.log(Function(JSONstr)());//error
+	// console.log(Function(JSONstr1)());//haha
+	/*$(document).ready(function() {
+		console.log('haha');
+		console.log($('span').css('color'));
+	});*/
+	$(function() {
+		console.log('haha');
+		console.log($('span').css('color'));
+	});
+
+	console.log($('span').css('color'));
+	</script>
+</body>
+</html>

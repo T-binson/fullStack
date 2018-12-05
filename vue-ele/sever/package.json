@@ -1,0 +1,24 @@
+{
+  "name": "vue-ele",
+  "version": "1.0.0",
+  "description": "",
+  "main": "clawer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "koa": "^2.6.2",
+    "koa-better-body": "^3.0.4",
+    "koa-convert": "^1.2.0",
+    "koa-router": "^7.4.0",
+    "koa-session": "^5.10.0",
+    "koa-static": "^5.0.0",
+    "mysql": "^2.16.0",
+    "redis": "^2.8.0",
+    "uuid": "^3.3.2"
+  }
+}

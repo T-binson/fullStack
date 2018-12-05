@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>d3 force</title>
+	<script src="./d3.v5.js"></script>
+</head>
+<body>
+	<canvas width="800" height="600" id="c1"></canvas>
+	<script>
+		let can = document.getElementById('c1');
+		let gd = can.getContext('2d');
+
+		let provinces = [
+			{
+				name: 'guizhou',
+				cities: ['guiyang', 'zunyi']
+			},
+			{
+				name: 'guangxi',
+				cities: ['guilin', 'nanning', 'liuzhou', 'beihai']
+			},
+			{
+				name: 'guangdong',
+				cities: ['shenzhen', 'guangzhou', 'zhuhai', 'dongguan', 'zhongshan', 'huizhou']
+			},
+			{
+				name: 'jiangsu',
+				cities: ['nanjing', 'wuxi']
+			},
+			{
+				name: 'chongqin',
+				cities: ['yubei']
+			},
+			{
+				name: 'shanghai',
+				cities: ['huangpu', 'jingan', 'pudong', 'xumin']
+			}
+		]
+		let nodes = [{name: 'China'}], links = [];
+		provinces.forEach(data => {
+			nodes.push({name: data.name});
+			links.push({source: 'China', target: data.name, value: 200});
+			data.cities.forEach(city => {
+				nodes.push({name: city});
+				links.push({source: data.name, target: city, value: 50});
+			});
+		})
+		let sim = d3.forceSimulation()
+								.nodes(nodes)
+								.force('link', d3.forceLink(links).id(item => item.name).distance(item => item.value))
+								.force('charge',d3.forceManyBody())
+								.force('center', d3.forceCenter(can.width/2, can.height/2));
+		sim.on('tick', () => {
+			gd.clearRect(0,0, can.width, can.height);
+			links.forEach(link => {
+				gd.beginPath();
+				gd.moveTo(link.source.x, link.source.y);
+				gd.lineTo(link.target.x, link.target.y);
+				gd.strokeStyle = '#999';
+				gd.stroke();
+			});
+			nodes.forEach(node => {
+				gd.beginPath();
+				gd.arc(node.x, node.y, 3, 0, Math.PI*2, true);
+				gd.fillStyle = '#000';
+				gd.fill();
+				gd.font = '16px Microsoft Yahui';
+				gd.fillText(node.name, node.x, node.y);
+			});
+		});
+	</script>
+</body>
+</html>

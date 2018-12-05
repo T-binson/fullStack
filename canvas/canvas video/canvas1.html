@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas video</title>
+</head>
+<body>
+	<video src="./4.mp4" style="display: none;"></video>
+	<input type="button" value="play">
+	<input type="button" value="pause">
+	<canvas id="c1" width="1280" height="720"></canvas>
+
+	<script>
+		let canvas = document.getElementById('c1');
+		let ov = document.getElementsByTagName('video')[0];
+		let btns = document.getElementsByTagName('input');
+		let gd = canvas.getContext('2d');
+
+		btns[0].onclick = function() {
+			ov.play();
+		};
+		btns[1].onclick = function() {
+			ov.pause();
+		};
+		/*setInterval(() => {
+			gd.drawImage(ov, 0, 0);
+		}, 1);*/
+		function next() {
+			requestAnimationFrame(function() {
+				gd.drawImage(ov, 0, 0);
+				next();
+			});
+		}
+		next();
+	</script>
+</body>
+</html>

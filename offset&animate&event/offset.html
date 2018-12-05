@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>offsetLeft&offsetTop</title>
+	<style>
+	* {
+		padding: 0;
+		margin: 0;
+	}
+		.box1 {
+			width: 300px;
+			height: 300px;
+			padding: 10px;
+			margin: 10px;
+			border: 10px solid #ccc;
+			position: relative;
+		}
+		/*.box2 {
+			width: 200px;
+			height: 200px;
+			padding: 10px;
+			margin: 10px;
+			border: 10px solid #aaa;
+			position: absolute;
+		}*/
+		.box3 {
+			width: 100px;
+			height: 100px;
+			padding: 10px;
+			margin: 10px;
+			border: 10px solid #555;
+		}
+	</style>
+</head>
+<body>
+	<div class="box1">
+		<div class="box2">
+			<button>animate</button>
+			<div class="box3" style="position: absolute;left: 0px;"></div>
+		</div>
+	</div>
+	<script>
+		var box3 = document.getElementsByClassName('box3')[0];
+		var btn = document.getElementsByTagName('button')[0];
+		// console.log(box3.offsetTop,box3.offsetLeft,box3.style.left,box3.style.top,box3.offsetHeight,box3.offsetWidth);
+		btn.onclick =function(argument) {
+			setInterval(function(argument) {
+				if(box3.offsetLeft > 500) {
+					clearInterval();
+				}else {
+					console.log(box3.offsetLeft);
+					box3.style.left = box3.offsetLeft + 10 +"px";
+					console.log(box3.style.left);
+				}}
+			,500)	
+		}
+	</script>
+</body>
+</html>

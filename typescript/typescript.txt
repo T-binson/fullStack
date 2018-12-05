@@ -1,0 +1,35 @@
+1.typescript install
+	npm install -g typescript
+
+	compile ts file:
+	command: tsc xxx.ts
+	check all commands: tsc
+
+2.type annotations类型注释
+	function area(shape: string, width: number, height: number) {
+		var area = width * height;
+		return `the shape is ${shape} having an area of ${area} cm squared.`;
+		document.body.innerHTML = area('rectangle', 20, 15);
+	}
+	注意函数中参数数据的类型定义，如string，弱引用或动态的数据类型使用any
+
+3.interface接口
+
+4.arrow function expressions箭头函数
+
+5.classes类
+
+6.destructuring解构赋值
+
+7.for...of遍历
+
+8.iterators遍历器
+
+9.template strings模板字符串
+
+10.spread operator
+
+11.enums
+
+12.let
+	let variable:type(string/number/array/object...)

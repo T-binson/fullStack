@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>direction fixed</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		html {
+			font-size: 20px;
+		}
+		body {
+			overflow: hidden;
+		}
+		.wrap {
+			background-color: #ccc;
+		}
+		.loading {
+			line-height: 30px;
+			text-align: center;
+		}
+		.content {
+			background-color: #fff;
+			transform: translateY(0px);
+			margin-top: -30px;
+		}
+		.banner {
+			width: 25rem;
+			height: 7.8rem;
+			overflow: hidden;
+			margin: 0 auto;
+		}
+		.banner ul {
+			width: 999rem;
+			transform: translateX(0px);
+		}
+		.banner ul li {
+			width: 25rem;
+			height: 7.8rem;
+			float: left;
+			line-height: 7.8rem;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="loading">loading</div>
+		<div class="content">
+			<div class="banner">
+				<ul>
+					<li style="background-color: #f00">1</li>
+					<li style="background-color: #0f0">2</li>
+					<li style="background-color: #00f">3</li>
+					<li style="background-color: #ff0">4</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script src="./jquery-3.3.1.min.js"></script>
+	<script>
+		document.documentElement.style.fontSize = document.documentElement.clientWidth * 20 /500 + 'px';
+		let banner = document.getElementsByClassName('banner')[0];
+		let ul = document.getElementsByTagName('ul')[0];
+		let content = document.getElementsByClassName('content')[0];
+		let loading = document.getElementsByClassName('loading')[0];
+		let firstLi = ul.children[0].cloneNode(true);
+		let lastLi = ul.children[ul.children.length - 1].cloneNode(true);
+		ul.insertBefore(lastLi, ul.children[0]);
+		ul.appendChild(firstLi);
+
+		//remark the last distance
+		let banner_x = -banner.offsetWidth, content_y = 0;
+		ul.style.transform = `translateX(${banner_x}px)`;
+		banner.addEventListener('touchstart', (e) => {
+			ul.style.transition = '';
+			content.style.transition = '';
+			e.preventDefault();
+			// 减去上次移动的距离，实际在移动过程中是加上上次移动的距离
+			let startx = e.targetTouches[0].clientX - banner_x;
+			let starty = e.targetTouches[0].clientY - content_y;
+			let point = 5, dir = '';
+			function fnmove(e) {
+				e.preventDefault();
+				let x = e.targetTouches[0].clientX;
+				let y = e.targetTouches[0].clientY;
+				let disx = x - startx;
+				let disy = y - starty;
+				//confirm the direction
+				if (!dir) {
+					if (Math.abs(disx) >= point) {
+						dir = 'x';
+					} else if (Math.abs(disy) >= point) {
+						dir = 'y';
+					}
+				} else {
+					if (dir === 'x') {
+						banner_x = disx;
+						ul.style.transform = `translateX(${disx}px)`;
+					} else if (dir === 'y') {
+						content_y = disy
+						if (content_y > 0) {
+							content.style.transform = `translateY(${disy/3}px)`;
+							if (content_y >= 200) {
+								loading.innerHTML = 'updating...';
+							} else {
+								loading.innerHTML = 'loading';
+							}
+						} else {
+							content.style.transform = `translateY(${disy}px)`;
+						}
+					}
+				}
+			}
+			function fnend(e) {
+				if (dir === 'x') {
+					let n = Math.round(-banner_x/banner.offsetWidth);
+					// console.log(n);					
+					if (n === 0) {
+						n = ul.children.length - 2;
+						banner_x =banner_x - n * banner.offsetWidth;
+						ul.style.transform = `translateX(${banner_x}px)`;
+					} else if (n === ul.children.length - 1) {
+						n = 1;
+						banner_x = banner_x + (ul.children.length - 2) * banner.offsetWidth;
+						ul.style.transform = `translateX(${banner_x}px)`;
+					}
+					banner_x = -n * banner.offsetWidth;
+					ul.style.transition = 'all .3s';
+					ul.style.transform = `translateX(${banner_x}px)`;
+					ul.addEventListener('transitionend', function() {
+						console.log('transition ends');
+					}, false);
+				} else if (dir === 'y') {
+					if (content_y >= 200) {
+						//loading data
+						content_y = loading.offsetHeight;
+						loading.innerHTML = 'loading...';
+					} else {
+						content_y = 0;
+					}
+					content.style.transition = 'all .3s';
+					content.style.transform = `translateY(${content_y}px)`;
+				}
+				banner.removeEventListener('touchmove', fnmove, false);
+				banner.removeEventListener('touchend', fnend, false);
+			}
+
+			banner.addEventListener('touchmove', fnmove, false);
+			banner.addEventListener('touchend', fnend, false);
+		}, false);
+	</script>
+</body>
+</html>

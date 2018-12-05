@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>drag upload files</title>
+	<style>
+		.box {
+			margin: 50px auto;
+			width: 500px;
+			height: 500px;
+			background-color: #ccc;
+			text-align: center;
+			line-height: 500px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">drag here</div>
+
+	<script>
+		let box = document.getElementsByClassName('box')[0];
+		box.addEventListener('dragenter', () => {
+			box.innerHTML = 'loose mouse';
+		}, false);
+		box.addEventListener('dragleave', () => {
+			box.innerHTML = 'drag here';
+		}, false);
+		box.addEventListener('dragover', (ev) => {
+			ev.preventDefault();
+		}, false);
+		box.addEventListener('drop', (ev) => {
+			ev.preventDefault();
+			let files = ev.dataTransfer.files;
+			let formData = new FormData();
+			Array.from(files).forEach((file) => {
+				formData.append('f1', file);
+			});
+			let xml = new XMLHttpRequest();
+			xml.upload.onerror = function(ev) {
+				console.log('error', ev);
+			};
+			xml.upload.onload = function() {
+				console.log('end');
+			};
+			xml.upload.onprogress = function(ev) {
+				console.log((ev.loaded/ev.total).toFixed(2));
+			}
+			xml.open('POST', './upload', true);
+			xml.send(formData);
+			xml.onreadystatechange = function() {
+				if (xml.readyState === 4) {
+					if (xml.status >= 200 && xml.status < 300 || xml.status === 304) {
+						alert('succeed');
+					}
+				}
+			}
+		}, false);
+	</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas</title>
+</head>
+<body>
+	<canvas id="canvas" width="800", height="600">your browser do not support canvas.</canvas>
+
+	<script>
+		let canvas = document.getElementById('canvas');
+		let gd = canvas.getContext('2d');
+
+		let rotate = 0;
+		gd.strokeRect(100,100, 200, 100);
+		setInterval(function() {
+			gd.clearRect(0, 0, canvas.width, canvas.height);
+			rotate++;
+			gd.save();
+			gd.translate(200, 150);
+			gd.rotate(rotate*Math.PI/180);
+			gd.strokeStyle = '#f30';
+			gd.strokeRect(-100, -50, 200, 100);
+			gd.restore();
+		}, 16);
+	</script>
+</body>
+</html>

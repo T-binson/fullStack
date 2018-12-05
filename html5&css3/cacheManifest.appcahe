@@ -1,0 +1,16 @@
+CACHE MANIFEST
+
+#注释以#开头
+
+
+#要缓存的文件
+CACHE:
+	ad.jpg
+
+#指定必须联网才能缓存的文件，可使用通配符*
+NETWORK:
+	https://cms-bucket.nosdn.127.net/3afebb5477a049e3bb019b2fe9e27f3e20180224075728.jpeg
+
+#当页面无法访问时返回的页面
+FALLBACK:
+	404.html

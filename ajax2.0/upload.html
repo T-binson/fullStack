@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax2.0</title>
+	<script>
+		window.onload = function() {
+			var send = document.getElementById('send');
+			var f1 = document.getElementById('f1');
+			send.onclick = function() {
+				var xml = new XMLHttpRequest();
+				var formData = new FormData();
+				formData.set('f1', f1.files);
+				//xml.upload must be before xml.open
+				xml.upload.onerror = function(ev) {
+					console.log('error', ev);
+				};
+				xml.upload.onload = function() {
+					console.log('upload completly');
+				};
+				xml.upload.onprogress = function(ev) {
+					console.log(ev, ev.total, ev.loaded);
+				};
+				xml.open('POST', '2.php', true);
+				xml.send(formData);
+				xml.onreadystatechange = function() {
+					if (xml.readyState === 4) {
+						if (xml.status >= 200 && xml.status < 300 || xml.status === 304) {
+							console.log(xml.responseText);
+						}
+					}
+				};
+			}
+		}
+	</script>
+</head>
+<body>
+	<input type="button" value="send" id="send">
+	<input type="file" id="f1" multiple="true">
+</body>
+</html>

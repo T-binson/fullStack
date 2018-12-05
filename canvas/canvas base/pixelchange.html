@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>pixel picture</title>
+</head>
+<body>
+	<input type="button" value="grey" id="btn1">
+	<input type="button" value="yellow" id="btn2">
+	<input type="button" value="green" id="btn3">
+	<input type="button" value="save" id="btn4">
+	<br>
+	<canvas id="c1" width="800" height="600"></canvas>
+	<img src="" alt="">
+
+	<script>
+		let btn1 = document.getElementById('btn1');
+		let btn2 = document.getElementById('btn2');
+		let btn3 = document.getElementById('btn3');
+		let btn4 = document.getElementById('btn4');
+		let outputimg = document.getElementsByTagName('img')[0];
+		let canvas = document.getElementById('c1');
+		let gd = canvas.getContext('2d');
+		let img = new Image();
+		img.src = './l4.jpg';
+		img.onload = function() {
+			gd.drawImage(img, 0, 0);
+			let imgdata = gd.getImageData(0, 0, 720, 350);
+			btn1.onclick = function() {
+				for(let i = 0; i < 350; i++) {
+					for(let j = 0; j < 720; j++) {
+						let avg = (imgdata.data[(i*720+j)*4+0] + imgdata.data[(i*720+j)*4+1]+imgdata.data[(i*720+j)*4+2])/3;
+						imgdata.data[(i*720+j)*4+0] = avg;
+						imgdata.data[(i*720+j)*4+1] = avg;
+						imgdata.data[(i*720+j)*4+2] = avg;
+					}
+				}
+				gd.putImageData(imgdata, 0, 0);
+			};
+			btn2.onclick = function() {
+				for(let i = 0; i < 350; i++) {
+					for(let j = 0; j < 720; j++) {
+						imgdata.data[(i*720+j)*4+2] = 0;
+					}
+				}
+				gd.putImageData(imgdata, 0, 0);
+			};
+			btn3.onclick = function() {
+				for(let i = 0; i < 350; i++) {
+					for(let j = 0; j < 720; j++) {
+						imgdata.data[(i*720+j)*4+0] = 0;
+						imgdata.data[(i*720+j)*4+2] = 0;
+					}
+				}
+				gd.putImageData(imgdata, 0, 0);
+			};
+			btn4.onclick = function() {
+				let baseurl = canvas.toDataURL();
+				// console.log(baseurl);
+				outputimg.src = baseurl;
+				// window.open(baseurl, '_blank');
+			};
+		}	
+	</script>
+</body>
+</html>

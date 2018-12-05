@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas rect</title>
+</head>
+<body>
+	<canvas id="can" width="500" height="500"></canvas>
+
+	<script type="text/javascript">
+		var can = document.getElementById("can");
+		var ctx = can.getContext("2d");
+
+		ctx.fillStyle = "#f40";
+		ctx.strokeStyle = "cyan";
+		//内置画布api，填充
+		ctx.fillRect(0,0,50,50);
+		//清除画布
+		ctx.clearRect(10,10,30,30);
+		//画布描边
+		ctx.strokeRect(70,0,70,70);
+
+	</script>
+</body>
+</html>

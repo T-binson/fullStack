@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>pinch</title>
+	<style>
+		.pinch {
+			width: 200px;
+			height: 200px;
+			background-color: #ccc;
+		}
+	</style>
+</head>
+<body>
+	<div class="pinch"></div>
+
+	<script src="./node_modules/hammerjs/hammer.js"></script>
+
+	<script>
+		let pinch = document.getElementsByClassName('pinch')[0];
+		let hammer = new Hammer(pinch, {});
+		//switch the pinch
+		let obj = hammer.get('pinch');
+		obj.set({enable: true});
+
+		hammer.on('pinchstart', e => {
+			console.log(e);
+		});
+		hammer.on('pinchmove', e => {
+			// console.log(e);
+			pinch.style.transform = `scale(${e.scale})`;
+		});
+		hammer.on('pinchend', e => {
+			console.log(e);
+		});
+	</script>
+</body>
+</html>

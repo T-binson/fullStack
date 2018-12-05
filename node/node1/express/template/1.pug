@@ -1,0 +1,23 @@
+doctype
+html(lang='en')
+	head
+		meta(charset="utf-8")
+		title sohu
+		script.
+			window.onload = function() {
+				let content = document.getElementsByClassName('content')[0];
+				content.style.background = '#f40';
+			}
+	body
+		div.content
+			ul#nav(title="nav")
+				li= a
+				li= b
+				li= a+b
+			ol
+				- arr.forEach(item => {
+				li= item
+				- })
+			ul
+				for item in arr
+					li= item

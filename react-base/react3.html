@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>components</title>
+	<script src="./babel.min.js"></script>
+	<script src="./react.development.js"></script>
+	<script src="./react-dom.development.js"></script>
+</head>
+<body>
+	<div class="box">
+		"" ——引号传递的值是字符串
+		{} ——大括号传递才是本来的值
+	</div>
+	<script type="text/babel">
+		class Test extends React.Component {
+			constructor(...arg) {
+				super(...arg);
+				this.a = 2;
+				// this.props.a = 3;	//x不能修改传入的属性
+			}
+			fn() {
+				alert(this.a+this.props.a+this.props.b - this.props.c);
+			}
+			render() {
+				return <div>
+					<input type="button" value='button' onClick={this.fn.bind(this)} />
+				</div>;
+			}
+		}
+		let box = document.getElementsByClassName('box')[0];
+		ReactDOM.render(
+			<Test a="1" b='2' c={5}></Test>,
+			box
+		);
+	</script>
+</body>
+</html>

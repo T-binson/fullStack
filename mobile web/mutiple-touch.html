@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>mutiple touched</title>
+	<style>
+		body {
+			height: 1000px;
+		}
+		.box {
+			width: 100px;
+			height: 100px;
+			position: absolute;
+		}
+		.b1 {
+			left: 50px;
+			top: 20px;
+			background-color: #f00;
+		}
+		.b2 {
+			left: 200px;
+			top: 20px;
+			background-color: #ff0;
+		}
+		.b3 {
+			left: 100px;
+			top: 150px;
+			background-color: #00f;
+		}
+	</style>
+</head>
+<body>
+	<div class="box b1"></div>
+	<div class="box b2"></div>
+	<div class="box b3"></div>
+
+	<script>
+		let boxs = document.getElementsByTagName('div');
+		Array.from(boxs).forEach((box) => {
+			drag(box);
+		})
+		function drag(obj) {
+			obj.addEventListener('touchstart', function(e) {
+				// console.log(e);
+				e.preventDefault();
+				let touchid = e.targetTouches[0].identifier;
+				let disx = e.targetTouches[0].pageX - obj.offsetLeft;
+				let disy = e.targetTouches[0].pageY - obj.offsetTop
+				obj.addEventListener('touchmove', fnmove, false);
+				obj.addEventListener('touchend', fnend, false);
+
+				function fnmove(e) {
+					e.preventDefault();
+					obj.style.top = e.targetTouches[0].pageY - disy + 'px';
+					obj.style.left = e.targetTouches[0].pageX - disx + 'px';
+				}
+				function fnend(e) {
+					//tackle the mutiple touches
+					Array.from(e.changedTouches).forEach((touch) => {
+						if (touch[0].identifier === touchid) {
+							obj.removeEventListener('touchmove', fnmove, false);
+							obj.removeEventListener('touchend', fnend, false);
+						}
+					})
+				}
+			});
+		};
+	</script>
+</body>
+</html>

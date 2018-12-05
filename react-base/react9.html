@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ref</title>
+	<script src="./babel.min.js"></script>
+	<script src="./react.development.js"></script>
+	<script src="./react-dom.development.js"></script>
+</head>
+<body>
+	<div class="box"></div>
+
+	<script type="text/babel">
+		class Parent extends React.Component {
+			constructor() {
+				super();
+			}
+			getChild() {
+				this.refs.c.fn();
+			}
+			render() {
+				return <div>
+					<input type="button" value='get' onClick={this.getChild.bind(this)} />
+					<Child ref='c' />
+				</div>
+				;
+			}
+		}
+		class Child extends React.Component {
+			constructor() {
+				super()
+			}
+			fn() {
+				alert(this.refs.v1.value - this.refs.v2.value);
+			}
+			render() {
+				return <div>
+					<input type="text" ref='v1' /> + <input type="text" ref='v2' />
+				</div>
+				;
+			}
+		}
+		let box = document.getElementsByClassName('box')[0];
+		ReactDOM.render(
+			<Parent />,
+			box
+		)
+	</script>
+</body>
+</html>

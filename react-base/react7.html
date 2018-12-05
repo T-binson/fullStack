@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>components</title>
+	<script src="./babel.min.js"></script>
+	<script src="./react.development.js"></script>
+	<script src="./react-dom.development.js"></script>
+</head>
+<body>
+	<div class="box"></div>
+
+	<script type="text/babel">
+		class UserList extends React.Component {
+			constructor(...arg) {
+				super(...arg);
+				this.state = {users: this.props.users};
+			}
+			render() {
+				let users = this.state.users.map(json => <User user={json} parent={this} key={json.id}></User>)
+				return <ul>{users}</ul>
+			}
+		}
+		class User extends React.Component {
+			constructor() {
+				super();
+			}
+			del(id) {
+				this.props.parent.setState({
+					users: this.props.parent.state.users.filter(json => json.id !== id)
+				});
+			}
+			render() {
+				return <li>
+					<div>username: {this.props.user.name}</div>
+					<div>age: {this.props.user.age}</div>
+					<a href="javascript:;" onClick={this.del.bind(this, this.props.user.id)}>delete</a>
+				</li>
+			}
+		}
+		let box = document.getElementsByClassName('box')[0];
+		let userlist = [{id: 1, name: 'dog', age: 3}, {id: 2, name: 'cat', age: 9}, {id: 3, name: 'people', age: 99}]
+		ReactDOM.render(
+			<UserList users={userlist}></UserList>,
+			box
+		)
+	</script>
+</body>
+</html>

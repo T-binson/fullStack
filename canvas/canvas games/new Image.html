@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>new Image()</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function loadImage(imgUrl,fn) {
+			var imgObj = {};
+			var loaded = 0;
+			var tempImageLength = 0;
+			for(var key in imgUrl) {
+				var tempImage = new Image();
+				tempImageLength ++;
+				tempImage.onload = function() {
+					loaded++;
+					if (loaded >= tempImageLength) {
+						fn();
+					}
+				}
+				tempImage.src = imgUrl[key];
+				imgObj[key] = tempImage;
+			}
+		}
+		loadImage({
+			b: "../images/b.jpg",
+			t: "../images/t.jpg"
+		},function(argument) {
+			alert(201812);
+		});
+	</script>
+</body>
+</html>

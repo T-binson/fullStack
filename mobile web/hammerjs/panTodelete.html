@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>pan to delete</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			text-decoration: none;
+		}
+		ul li {
+			position: relative;
+			height: 30px;
+			border: 1px solid #000;
+		}
+		.message {
+			position: absolute;
+			left: 0;
+			top: 0;
+			z-index: 3;
+			width: 100%;
+			background-color: #fff;
+			line-height: 30px;
+			padding-left: 25px;
+			box-sizing: border-box;
+			transition: all .3s ease;
+		}
+		.message i {
+			position: absolute;
+			left: 10px;
+			top: 12px;
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background-color: #00f;
+		}
+		.btns {
+			position: absolute;
+			right: 0;
+			top: 0;
+			z-index: 1;
+			line-height: 30px;
+			text-align: center;
+			font-size: 0;
+		}
+		.btns .read {
+			display: inline-block;
+			width: 50px;
+			font-size: 16px;
+			color: #fff;
+			background-color: purple;
+		}
+		.btns .del {
+			display: inline-block;
+			width: 50px;
+			font-size: 16px;
+			color: #fff;
+			background-color: #f00;
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li>
+			<div class='message'><i></i>item1</div>
+			<div class="btns">
+				<a href="#" class="read">read</a>
+				<a href="#" class="del">delete</a>
+			</div>
+		</li>
+		<li>
+			<div class='message'><i></i>item2</div>
+			<div class="btns">
+				<a href="#" class="read">read</a>
+				<a href="#" class="del">delete</a>
+			</div>
+		</li>
+		<li>
+			<div class='message'><i></i>item3</div>
+			<div class="btns">
+				<a href="#" class="read">read</a>
+				<a href="#" class="del">delete</a>
+			</div>
+		</li>
+		<li>
+			<div class='message'><i></i>item4</div>
+			<div class="btns">
+				<a href="#" class="read">read</a>
+				<a href="#" class="del">delete</a>
+			</div>
+		</li>
+		<li>
+			<div class='message'><i></i>item5</div>
+			<div class="btns">
+				<a href="#" class="read">read</a>
+				<a href="#" class="del">delete</a>
+			</div>
+		</li>
+	</ul>
+
+	<script src="./node_modules/hammerjs/hammer.js"></script>
+	<script>
+		let ul = document.getElementsByTagName('ul')[0];
+		let lis = document.getElementsByTagName('li');
+		let reads = document.getElementsByClassName('read');
+		let dels = document.getElementsByClassName('del');
+
+		Array.from(lis).forEach((li)=> {
+			let hammer = new Hammer(li, {});
+			hammer.on('panleft', function() {
+				Array.from(lis).forEach((li) => {
+					li.children[0].style.transform = 'translateX(0px)';
+					// li.children[1].children
+				});
+				li.children[0].style.transform = 'translateX(-120px)';
+			});
+			hammer.on('panright', function() {
+				li.children[0].style.transform = 'translateX(0px)';
+			});
+		});
+		//注意：如果a标签的href属性为空，当绑定事件时，会执行失败，此时要么补充href属性，要么在事件中阻止默认事件
+		Array.from(dels).forEach(function(a) {
+			a.addEventListener('click', function(e) {
+				// e.preventDefault();
+				let li = a.parentNode.parentNode;
+				li.style.transition = 'all .3s';
+				li.style.height = '0px';
+				li.addEventListener('transitionend', () => {
+					ul.removeChild(li);
+				}, false);
+
+			});
+		});
+		Array.from(reads).forEach((read) => {
+			read.onclick = function() {
+				// console.log(this.parentNode.previousElementSibling.childNodes);
+				this.parentNode.previousElementSibling.children[0].style.backgroundColor = '#fff';
+			};
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>chantrobot</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		html,body {
+			height: 100%;
+		}
+		.container {
+			width: 500px;
+			height: 100%;
+			margin: 0 auto;
+			border: 1px solid #0094ff;
+		}
+		.messagebox {
+			width: 100%;
+			height: 80%;
+			background-color: #ccc;
+			overflow: scroll;
+		}
+		.inputbox {
+			width: 100%;
+			height: 20%;
+			background-color: #999;
+		}
+		#inputvalue {
+			width: 80%;
+			border: 0;
+			height: 100%;
+			font-size: 30px;
+		}
+		#btn {
+			width: 20%;
+			height: 100%;
+			border: 0;
+			font-size: 30px;
+		}
+		.me {
+			text-align: left;
+			font-size: 20px;
+			line-height: 25px;
+			color: #424242;
+			background-color: #fff;
+		}
+		.robot {
+			text-align: right;
+			font-size: 20px;
+			line-height: 25px;
+			color: #fff;
+			background-color: #424242;	
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="messagebox"></div>
+		<div class="inputbox">
+			<input type="text" id="inputvalue"><input type="button" value="send" id="btn">
+		</div>
+	</div>
+	<script src="../ajax/ajax_tool/ajax_tool.js"></script>
+	<script>
+		document.querySelector('#btn').onclick = function() {
+			var dialogue = document.createElement('p'),
+				inputvalue = document.getElementById('inputvalue').value;
+			dialogue.innerHTML = inputvalue;
+			dialogue.className = 'me';
+			document.querySelector('.messagebox').appendChild(dialogue);
+
+			ajax({
+				url:'chatrobot.php',
+				method: 'post',
+				data: 'message='+inputvalue,
+				success: function(data) {
+					var robot = document.createElement('p');
+					robot.innerHTML = data;
+					robot.className = 'robot';
+					document.querySelector('.messagebox').appendChild(robot);
+				}
+			})
+
+		}
+	</script>
+</body>
+</html>

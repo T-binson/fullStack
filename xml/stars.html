@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>stars</title>
+	<style>
+		table {
+			width: 500px;
+			margin: 20px auto;
+			text-align: center;
+		}
+		td {
+			border-collapse: collapse;
+			border: 1px solid #0094ff;
+		}
+		img {
+			width: 200px;
+		}
+	</style>
+</head>
+<body>
+	<h1>获取xml数据</h1>
+	<p><input type="button" value="xml"></p>
+	<div class="table"></div>
+	<script>
+		document.querySelector('input').onclick = function() {
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.open('post','stars.php');
+			xmlhttp.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+			xmlhttp.send();
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+					// console.log(xmlhttp.responseText);
+					// console.log(xmlhttp.responseXML);
+					var str = '',
+						starsArr = xmlhttp.responseXML.querySelectorAll('person'),
+						len = starsArr.length;
+						str +='<table>';
+					for (var i = 0; i < len; i++) {
+						str+='<tr>';
+						str+='<td>'+starsArr[i].querySelector('name').innerHTML+'</td>';
+						str+='<td><img src="'+starsArr[i].querySelector('path').innerHTML+'"/></td>';
+						str+='<td>'+starsArr[i].querySelector('profession').innerHTML+'</td>';
+						str+='<td><a href="#">more</a></td>';
+						str+='</tr>';
+					}
+					str+='</table>';
+					//console.log(str);
+					document.querySelector('.table').innerHTML = str;
+				}
+			}
+		}
+	</script>
+</body>
+</html>

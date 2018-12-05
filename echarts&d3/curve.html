@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script src="./d3.v5.js"></script>
+	<script>
+		let data = [
+			{name: '1Jan', value: 200},
+			{name: '2Feb', value: 321},
+			{name: '3Mar', value: 332},
+			{name: '4Apr', value: 765},
+			{name: '5May', value: 685},
+			{name: '6Jun', value: 987},
+			{name: '7Jul', value: 865},
+			{name: '8Aug', value: 567},
+			{name: '9Sep', value: 468},
+			{name: '10Oct', value: 975},
+			{name: '11Nov', value: 573},
+			{name: '12Dec', value: 673}
+		];
+		let lineGen = d3.line()
+										.x(item => (parseInt(item.name) - 1) * 800/(data.length-1))
+										.y(item => 500 - item.value/10)
+		let res = lineGen(data);
+		// console.log(res);
+		d3.select('body')
+			.append('svg')
+			.attr('width', 800)
+			.attr('height', 600)
+			.style('border', '1px solid #000')
+			.append('path')
+			.attr('d', res)
+			.attr('stroke', '#000')
+			.attr('fill', 'none')
+	</script>
+</body>
+</html>

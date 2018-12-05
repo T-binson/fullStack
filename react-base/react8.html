@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ref</title>
+	<script src="./babel.min.js"></script>
+	<script src="./react.development.js"></script>
+	<script src="./react-dom.development.js"></script>
+</head>
+<body>
+	<div class="box"></div>
+
+	<script type="text/babel">
+		class Test extends React.Component {
+			constructor() {
+				super();
+				this.state = {
+					sum: 0
+				}
+			}
+			add() {
+				this.setState({
+					sum: Number(this.refs.v1.value) + Number(this.refs.v2.value)
+				});
+			}
+			render() {
+				return <div>
+					<input type="text" ref='v1' /> + <input type="text" ref='v2' />
+					<input type="button" value='=' onClick={this.add.bind(this)} />
+					<span>{this.state.sum}</span>
+				</div>
+				;
+			}
+		}
+		let box = document.getElementsByClassName('box')[0];
+		ReactDOM.render(
+			<Test />,
+			box
+		)
+	</script>
+</body>
+</html>

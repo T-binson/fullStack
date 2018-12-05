@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>draw with colors</title>
+</head>
+<body>
+	<p><input type="color" id="color"></p>
+	<canvas id="c1" height="600" width="800">your browser do not support canvas.</canvas>
+
+	<script>
+		let color = document.getElementById('color');
+		let can = document.getElementById('c1');
+		let gd = can.getContext('2d');
+		let lastX, lastY;
+
+		can.onmousedown = function(ev) {
+			lastX = ev.offsetX;
+			lastY = ev.offsetY;
+			can.onmousemove = function(ev) {
+				gd.beginPath();
+				gd.moveTo(lastX, lastY);
+				gd.lineTo(ev.offsetX, ev.offsetY);
+				gd.strokeStyle = color.value;
+				gd.stroke();
+				lastX = ev.offsetX;
+				lastY = ev.offsetY;
+			};
+			can.onmouseup = function() {
+				can.onmousemove = null;
+				can.onmouseup = null;
+			}
+		}
+	</script>
+</body>
+</html>

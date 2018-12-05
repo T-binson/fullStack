@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>my vue</title>
+	<script src="./my-vue.js"></script>
+</head>
+<body>
+	<div class="box">
+		<h1 :title="plus">a{{a}} + b{{b}} = {{a + b}}</h1>
+		<p :title='vue'>vue, hello!</p>
+		<p v-bind:title='b'></p>
+		<button @click='fn'>click</button>
+	</div>
+	<script>
+		let myVm = new MyVue({
+			el: '.box',
+			data: {
+				a: 4,
+				b: 5,
+				plus: 'add'
+			},
+			methods: {
+				fn() {
+					alert(this.a + this.b);
+				}
+			}
+		});
+		/*myVm.a = 2;
+		alert(myVm.a);*/
+	</script>
+</body>
+</html>

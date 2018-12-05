@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ejs</title>
+</head>
+<body>
+	<table border="1" width="100%">
+		<thead>
+			<tr>
+				<th>username</th>
+				<th>age</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% arr.forEach(json => { %>
+			<tr>
+				<td><%=json.name %></td>
+				<td><%=json.age %></td>
+			</tr>
+			<% }) %>
+		</tbody>
+	</table>
+</body>
+</html>

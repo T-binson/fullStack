@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>拖动盒子移动</title>
+	<style>
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+		body,html {
+			width: 100%;
+			height: 100%;
+		}
+		a {
+			text-decoration: none;
+			color: #424242;
+			font-size: 16px;
+		}
+		.box {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin: -150px 0 0 -200px;	
+			width: 400px;
+			height: 300px;
+			/*border: 1px solid #ccc;*/
+			background-color: #fff;
+			display: none;
+			/*box-shadow: 0 0 0px 2px #ccc;*/
+		}
+		.box p {
+			background-color: cyan;
+			height: 20px;
+			position: relative;
+			cursor: move;
+		}
+		.box p span {
+			position: absolute;
+			right: 0px;
+			top: 0px;
+			width: 18px;
+			height: 18px;
+			text-align: center;
+			line-height: 19px;
+			/*border: 1px solid #333;*/
+			color: red;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<p class="title">可移动窗口<span>X</span></p>
+		<div class="content"></div>
+	</div>
+	<a href="#">register</a>
+	<a href="#">login</a>	
+
+	<script>
+		var login = document.getElementsByTagName('a')[1];
+		var box = document.getElementsByTagName('div')[0];
+		//鼠标点击login模态窗显示，点击非模态窗区域隐藏
+		login.onclick = function(event) {
+			box.style.display = "block";
+			document.body.style.backgroundColor = "rgba(0,0,0,.3)";
+			var event = event || window.event;
+			if (event.stopPropagation) {
+				event.stopPropagation();
+			}else {
+				event.cancelBubble = true;
+			}
+			if (box.style.display === "block") {
+			document.body.onclick = function(event) {
+				var event = event || window.event;
+				var target = event.target || event.srcElement;
+				// console.log(target.className);
+				if(target.className !== "box" && target.className !== "title") {
+					// console.log(1);
+					box.style.display = "none";
+					document.body.style.backgroundColor = "#fff";
+					}
+				}
+			}
+		}
+		/*if (box.style.display === "block") {
+			document.body.onclick = function(event) {
+			var event = event || window.event;
+			var target = event.target || event.srcElement;
+			console.log(target.className);
+			if(target.className !== "box" && target.className !== "title") {
+				// console.log(1);
+				box.style.display = "none";
+				document.body.style.backgroundColor = "#fff";
+			}
+			}
+		}*/
+		//模态窗跟着鼠标移动
+		var title = document.getElementsByClassName('title')[0];
+		title.onmousedown = function(event) {
+			var event = event || window.event;
+			var pageX = event.pageX || getScroll().left + event.clientX;
+			var pageY = event.pageY || getScroll().top + event.clientY;
+			var x = pageX - box.offsetLeft;
+			var y = pageY - box.offsetTop;
+			// console.log(x,y);
+			// console.log(box.offsetLeft,box.offsetTop);
+			document.body.onmousemove = function(e) {
+				var event = e || window.event;
+				//200和150是因为模态窗本身有margin值
+				var xx = event.pageX - x + 200 || getScroll().left + event.clientX - x + 200;
+				var yy = event.pageY - y + 150 || getScroll().top + event.clientY - y + 150;
+				//限制模态窗移动范围
+				if (xx < 200) {
+					xx = 200;
+				}else if(xx > document.body.clientWidth - box.offsetWidth + 200) {
+					xx = document.body.clientWidth - box.offsetWidth + 200;
+				}
+				if(yy < 150) {
+					yy = 150;
+				}else if(yy > document.body.clientHeight - box.offsetHeight + 150) {
+					yy = document.body.clientHeight - box.offsetHeight + 150;
+				}
+				box.style.left = xx + "px";
+				box.style.top = yy + "px";
+				// console.log(1);
+				//取消选中的内容，防止事件未解绑
+				window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+			}
+		}
+		document.onmouseup = function() {
+			document.body.onmousemove = null;
+		// 	console.log(1);
+		}
+
+		function getScroll() {
+			if (window.pageYOffset) {
+				return {
+					"top": window.pageYOffset,
+					"left": window.pageXOffset
+				}
+			}else if(document.compatMode === "CSS1Compat") {
+				return {
+					"top": document.documentElement.scrollTop,
+					"left": document.documentElement.scrollLeft
+				}
+			}else {
+				return {
+					"top": document.body.scrollTop,
+					"left": document.body.scrollLeft
+				}
+			}
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>animate types</title>
+</head>
+<body>
+	<input type="button" id="btn" value="animate">
+	<script src="./raphael.js"></script>
+	<script>
+		var paper = Raphael(50,50, 800, 600);
+		var types = ['linear', 'easeIn', 'easeOut', 'backIn', 'backOut', 'elastic', 'bounce'];
+		var rects = types.map(function(item, index) {
+			var rect = paper.path(`M 50 ${50 + 50*index} L 100 ${50 + 50*index} 100 ${100 + 50*index} 50 ${100+50*index} Z`);
+			rect.attr('fill', '#0f0');
+			return rect;
+		});
+		var btn = document.getElementById('btn');
+		btn.onclick = function() {
+			rects.forEach(function(rect, index) {
+				rect.animate({path: `M 450 ${50 + 50*index} L 500 ${50 + 50*index} 500 ${100 + 50*index} 450 ${100+50*index} Z`}, 1000,types[index]);
+			});
+		};
+	</script>
+</body>
+</html>

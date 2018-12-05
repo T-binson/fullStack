@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>drag</title>
+	<style>
+		.box {
+			background: #ccc;
+			width: 500px;
+			height: 500px;
+			margin: 50px auto;
+			border: 1px solid #000;
+			text-align: center;
+		}
+	</style>
+	<script>
+		window.onload = function() {
+			var box = document.getElementsByClassName('box')[0];
+			var img = document.getElementsByClassName('img')[0];
+			box.addEventListener('dragenter', function() {
+				box.innerHTML = 'loose mouse';
+			}, false);
+			box.addEventListener('dragleave', function() {
+				box.innerHTML = 'drag here';
+			}, false);
+			box.addEventListener('dragover', function(ev) {
+				console.log('dragover');
+				ev.preventDefault();
+			}, false);
+			box.addEventListener('drop', function(ev) {
+				ev.preventDefault();
+				// console.log(ev);
+				// console.log(ev.dataTransfer.files);
+				
+				var file = ev.dataTransfer.files[0];
+
+				var filereader = new FileReader();
+
+				// filereader.readAsText(file);	//文本数据
+				// filereader.readAsDataURL(file);	//适合图片
+				// filereader.readAsArrayBuffer(file); // 原始二进制数据
+				filereader.readAsBinaryString(file);	//二进制文本数据，适合上传
+				
+				filereader.onload = function(ev) {
+					console.log(this.result)
+					// img.src = this.result;
+				};
+				filereader.onerror = function(err) {
+					console.log(err);
+				};
+			},false);
+		}
+	</script>
+</head>
+<body>
+	<div class="box">drag here</div>
+	<!-- <img class="img" alt=""> -->
+</body>
+</html>

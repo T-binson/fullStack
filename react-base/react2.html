@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>components</title>
+	<script src="./babel.min.js"></script>
+	<script src="./react.development.js"></script>
+	<script src="./react-dom.development.js"></script>
+</head>
+<body>
+	<div class="box"></div>
+	<script type="text/babel">
+		class Test extends React.Component {
+			constructor(...arg) {
+				super(...arg);
+			}
+			render() {
+				return <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias repellat, fugit quisquam distinctio accusantium vel, ratione optio cum adipisci beatae laborum nihil, laudantium nisi error temporibus commodi fuga sapiente autem?</p>;
+			}
+		}
+		let box = document.getElementsByClassName('box')[0];
+		ReactDOM.render(<Test></Test>, box);
+	</script>
+</body>
+</html>

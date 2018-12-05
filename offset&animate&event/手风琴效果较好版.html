@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>acordlon</title>
+	<style>
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+		div {
+			width: 1040px;
+			height: 350px;
+			border: 1px solid #f40;
+			margin: 50px auto;
+			overflow: hidden;
+		}
+		ul {
+			list-style: none;
+			width: 1140px;
+			height: 100%;
+			overflow: hidden;
+		}
+		li {
+			float: left;
+			width: 208px;
+			height: 100%;
+		}
+		li a {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<ul>
+			<li><a href="#"><img src="images/l1.jpg" alt=""></a></li>
+			<li><a href="#"><img src="images/l2.jpg" alt=""></a></li>
+			<li><a href="#"><img src="images/l3.jpg" alt=""></a></li>
+			<li><a href="#"><img src="images/l4.jpg" alt=""></a></li>
+			<li><a href="#"><img src="images/l5.jpg" alt=""></a></li>
+		</ul>
+	</div>
+
+	<script>
+		var liArr = document.querySelectorAll('li');
+		var len = liArr.length;
+		for (var i = 0; i < len; i++) {
+			liArr[i].onmouseenter = function() {
+				for (var j = 0; j < len; j++) {					
+					animate(liArr[j],{"width" : 80});
+				}
+				animate(this,{"width": 720});
+			}
+			liArr[i].onmouseout = function() {
+				for (var j = 0; j < len; j++) {
+					animate(liArr[j],{"width" : 208});
+				}
+			}
+		}
+
+		function animate(ele,json,fn) {
+			var bool = true;
+			clearInterval(ele.timer);
+			ele.timer = setInterval(function() {
+				for(var key in json) {
+					var eleStyle = parseInt(getStyle(ele,key)) || 0;
+					var step = (json[key] - eleStyle)/10;
+					step = step > 0?Math.ceil(step):Math.floor(step);
+					ele.style[key] = eleStyle + step + "px";
+					if (json[key] !== eleStyle) {
+						bool = false;
+					}
+				}
+				if (bool) {
+					clearInterval(ele.timer);
+					if (fn) {
+						fn();
+					}
+				}
+			},15)	
+		}
+
+		function getStyle(ele,attr) {
+			if (window.getComputedStyle) {
+				return window.getComputedStyle(ele,null)[attr];
+			}else {
+				return ele.currentStyle[attr];
+			}
+		}
+	</script>
+</body>
+</html>

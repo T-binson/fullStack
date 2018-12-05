@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>360ad</title>
+	<style>
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+		.box {
+			position: absolute;
+			right: 0px;
+			bottom: 0px;
+		}
+		.top {
+			position: relative;
+			/*height: 240px;*/
+		}
+		.top span {
+			position: absolute;
+			right: 13px;
+			top: 4px;
+			width: 11px;
+			height: 11px;
+			cursor: pointer;
+		}
+	</style>
+	<script src="animate.js"></script>
+</head>
+<body>
+	<div class="box">
+		<div class="top">
+			<span></span>
+			<img src="images/t.jpg" alt="">
+		</div>
+		<div class="bottom">
+			<img src="images/b.jpg" alt="">
+		</div>
+	</div>
+	<script>
+		var box = document.querySelector(".box");
+		// console.log(box);
+		var tbox = box.children[0];
+		var closebtn = tbox.children[0];
+		// console.log(tbox);
+		var bbox= box.children[1].children[0];
+		closebtn.onclick = function() {
+			animate(bbox,{"height": 0},function() {
+				animate(tbox.children[1],{"width": 0},null,15);
+			},15);
+		};
+	</script>
+</body>
+</html>

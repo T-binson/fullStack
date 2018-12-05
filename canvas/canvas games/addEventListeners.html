@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>addEventListener</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var monitors = {
+			listeners: [],
+			trigerEvent: function() {
+				this.listeners.forEach(function(val) {
+					val();
+				});
+			}
+		}
+		monitors.listeners.push(function() {console.log("Event 1");});
+		monitors.listeners.push(function() {console.log("Event 2");});
+
+		// monitors occur
+		monitors.trigerEvent();
+	</script>
+</body>
+</html>

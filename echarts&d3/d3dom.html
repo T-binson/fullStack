@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>d3 dom</title>
+	<script src="./d3.v5.js"></script>
+</head>
+<body>
+	<script>
+		d3.select('body')
+			.append('div')
+			.style('width', '100px')
+			.style('height', '100px')
+			.style('background', 'red')
+			.append('svg')
+			.attr('width', 800)
+			.attr('height', 600)
+			.append('path')
+			.attr('d', 'M 100,100 L 300,200 200,200 Z')
+			.attr('stroke', '#f40')
+			.attr('fill', 'none')
+	</script>
+</body>
+</html>

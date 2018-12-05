@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>animate</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.box {
+			width: 720px;
+			height: 350px;
+			padding: 5px;
+			margin: 30px auto;
+			border: 1px solid #ccc;
+		}
+		.inner {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			position: relative;
+		}
+		ul {
+			list-style: none;
+			width: 600%;
+			position: absolute;
+		}
+		li {
+			float: left;
+		}
+		.left,.right {
+			position: absolute;
+			width: 40px;
+			height: 60px;
+			color: #fff;
+			background-color: rgba(200,200,200,.5);
+			font-size: 40px;
+			line-height: 60px;
+			text-align: center;
+			display: none;
+			cursor: pointer;
+		}
+		.left {
+			left: 0px;
+			top: 50%;
+			margin-top: -30px;
+		}
+		.right {
+			right: 0px;
+			top: 50%;
+			margin-top: -30px;
+		}
+		.index {
+			position: absolute;
+			right: 10px;
+			bottom: 10px;
+		}
+		.index span {
+			display: inline-block;
+			width: 16px;
+			height: 16px;
+			border: 1px solid #eee;
+			margin: 2px;
+			line-height: 18px;
+			text-align: center;
+			cursor: pointer;
+		}
+		.current {
+			background-color: #f40;
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="inner">
+			<ul>
+				<li><a href="#"><img src="images/l1.jpg" alt=""></a></li>
+				<li><a href="#"><img src="images/l2.jpg" alt=""></a></li>
+				<li><a href="#"><img src="images/l3.jpg" alt=""></a></li>
+				<li><a href="#"><img src="images/l4.jpg" alt=""></a></li>
+				<li><a href="#"><img src="images/l5.jpg" alt=""></a></li>
+				<li><a href="#"><img src="images/l1.jpg" alt=""></a></li>
+			</ul>
+			<div class="left"><span>&lt;</span></div>
+			<div class="right"><span>&gt;</span></div>
+			<div class="index">
+				<span class="current">1</span>
+				<span>2</span>
+				<span>3</span>
+				<span>4</span>
+				<span>5</span>
+			</div>
+		</div>
+	</div>
+	<script>
+		var inner = document.getElementsByClassName('inner')[0];
+		var boxWidth = inner.offsetWidth;
+
+		// 索引值显示
+		var ul = inner.children[0];
+		var list = inner.children[3].children;
+		/*var lione= ul.children[0].cloneNode(true); 克隆li结点
+		ul.appendChild(lione);*/
+		var len = list.length;//5
+		for (var i = 0; i < len; i++) {
+			list[i].index = i;
+			list[i].onmouseover = function() {
+				for (var j = 0; j < len; j++) {
+					list[j].className = "";
+				}
+				this.className = "current";
+				animate(ul,-this.index*boxWidth);
+				key = num = this.index;//同步计数器
+			}
+		}
+
+		//开启定时器
+		var timer = setInterval(autoPlay,1600);
+		var key = 0,num = 0;//设定计数器
+		function autoPlay() {
+			key++;
+			// console.log(key);
+			if (key > len) {
+				key = 1;
+				ul.style.left = 0;
+			}
+			animate(ul,-key*boxWidth);
+			// console.log(-key*boxWidth);
+
+			num++;
+			// console.log(num);
+			if(num > len - 1) {
+				num = 0;
+			}
+			for (var j = 0; j < len; j++) {
+					list[j].className = "";
+				}
+			list[num].className = "current";
+		}
+
+		//鼠标放在图片上显示左右按钮
+		var pre = inner.children[1];
+		var next = inner.children[2];
+		inner.onmouseover = function() {
+			pre.style.display = "block";
+			next.style.display = "block";
+			clearInterval(timer);
+		};
+		inner.onmouseout = function() {
+			pre.style.display = "none";
+			next.style.display = "none";
+			timer = setInterval(autoPlay,1600);
+		}
+
+		//点击左右按钮滚动到下一张
+		pre.onclick = function() {	
+			key--;
+			if (key < 0) {
+				key = len - 1;
+				ul.style.left = -len*boxWidth+"px";
+			}
+			animate(ul,-key*boxWidth);
+			num--;
+			if(num < 0) {
+				num = len - 1;
+			}
+			for (var j = 0; j < len; j++) {
+				list[j].className = "";
+			}
+			list[num].className = "current";
+		};
+		next.onclick = function(argument) {
+			key++;
+			if (key > len) {
+				key = 1;
+				ul.style.left = 0;
+			}
+			animate(ul,-key*boxWidth);
+			num++;
+			if(num > len - 1) {
+				num = 0;
+			}
+			for (var j = 0; j < len; j++) {
+				list[j].className = "";
+			}
+			list[num].className = "current";
+		};
+
+		//滚动动画
+		/*function animate(ele,target,speed) {
+			clearInterval(ele.timer);
+			var speed = target > ele.offsetLeft?speed:-speed;
+			ele.timer = setInterval(function() {
+				var val = target - parseInt(ele.style.left);
+				ele.style.left = ele.offsetLeft + speed + "px";
+				// console.log(1);检测定时器是否停止
+				if(Math.abs(val) <= Math.abs(speed)) {
+					ele.style.left = target + "px";
+					clearInterval(ele.timer);
+				}
+			},10);
+		}*/
+		//缓动动画
+		function animate(ele,target) {
+			clearInterval(ele.timer);
+			ele.timer = setInterval(function() {
+				var speed = (target - ele.offsetLeft)/10;
+				speed = speed > 0?Math.ceil(speed):Math.floor(speed);
+				ele.style.left = ele.offsetLeft + speed + "px";
+				// console.log(1);
+				if(Math.abs(target - ele.offsetLeft) <= Math.abs(speed)) {
+					ele.style.left = target + "px";
+					clearInterval(ele.timer);
+				}
+			},18)	
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>upload canvas</title>
+</head>
+<body>
+	<input type="button" value="upload" id="btn1">
+	<input type="button" value="clear" id="btn2"><br />
+	<canvas id="c1" width="800" height="600"></canvas>
+
+	<script>
+		let btn1 = document.getElementById('btn1');
+		let btn2 = document.getElementById('btn2');
+		let canvas = document.getElementById('c1');
+		let gd = canvas.getContext('2d');
+
+		canvas.onmousedown = function(ev) {
+			let lastX = ev.offsetX, lastY = ev.offsetY;
+			canvas.onmousemove = function(ev) {
+				gd.beginPath();
+				gd.moveTo(lastX, lastY);
+				gd.lineTo(ev.offsetX, ev.offsetY);
+				gd.stroke();
+				lastX = ev.offsetX;
+				lastY = ev.offsetY;
+			};
+			canvas.onmouseup = function() {
+				canvas.onmousemove = null;
+				canvas.onmouseup = null;
+			}
+		};
+
+		btn1.onclick = function() {
+			let can = canvas.toDataURL();
+			let xml = new XMLHttpRequest();
+			// let formData = new FormData();
+			// formData.append('canvas', can);
+			xml.open('POST', '/upload_base64', true);
+			// xml.send(formData);
+			xml.send(encodeURIComponent(can));
+			xml.onreadystatechange = function() {
+				if (xml.readyState === 4) {
+					if (xml.status >= 200 && xml.status < 300 || xml.status === 304) {
+						console.log('succeed');
+					}
+				}
+			}
+		};
+		btn2.onclick = function() {
+			gd.clearRect(0, 0, canvas.width, canvas.height);
+		}
+	</script>
+</body>
+</html>

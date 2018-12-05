@@ -1,0 +1,57 @@
+/*global variable*/
+:root {
+	--main-bg-color: #f4f4f4;
+	--main-txt-color: #333;
+	--header-bg-color: #6767cc;
+	--header-txt-color: #fff;
+	--container-width: 90%;
+}
+body {
+	margin: 0;
+	padding: 0;
+	line-height: 1.5;
+	background-color: var(--main-bg-color);
+	color: var(--main-txt-color);
+}
+header {
+	background-color: var(--header-bg-color);
+	color: var(--header-txt-color);
+}
+header h2 {
+	margin: 0;
+	padding: 0px 5px;
+}
+.container {
+	width: var(--container-width);
+	margin: 20px auto;
+}
+
+/*local variable*/
+.box {
+	/*这里定义的值只在该容器下的标签中生效*/
+	--box-bg-color: #ddd;
+	--box-border-color: #06c;
+	--box-padding: 5px 10px;
+	--box-shadow-h-offset: 10px;
+	--box-shadow-v-offset: 5px;
+	--box-shadow-blur: 5px;
+}
+.box {
+	background-color: var(--box-bg-color);
+	border: 1px solid var(--box-border-color);
+	padding: var(--box-padding);
+	box-shadow: 
+		var(--box-shadow-h-offset) 
+		var(--box-shadow-v-offset)
+		var(--box-shadow-blur)
+		var(--box-border-color);
+}
+.box p {
+	color: var(--box-p-color, #555);
+}
+.grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 20px;
+	align-items: center;
+}

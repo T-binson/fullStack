@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas</title>
+</head>
+<body>
+	<canvas id="canvas" width="600" height="600"></canvas>
+
+	<script>
+		let canvas = document.getElementById('canvas');
+		let gd = canvas.getContext('2d');
+		gd.lineWidth = 10;
+
+		gd.moveTo(100, 100);
+		gd.lineTo(300,400);
+		gd.lineTo(100, 400);
+		gd.lineTo(100, 100);
+		gd.strokeStyle = '#f00';
+		gd.stroke();
+
+		gd.beginPath();
+
+		gd.moveTo(150, 100);
+		gd.lineTo(350, 400);
+		gd.lineTo(500, 400);
+		gd.lineTo(150, 100);
+		gd.closePath();
+		gd.strokeStyle = '#00f';
+		gd.stroke();
+	</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>404</title>
+	<script>
+		window.onload = function() {
+			let ret = document.getElementById('return');
+			let t = 5;
+			ret.innerHTML = t;
+			setInterval(function() {
+				t--;
+				ret.innerHTML = t;
+				if (t === 0) {
+					window.location = 'https://www.duckduckgo.com';
+				}
+			}, 1000);
+		}
+	</script>
+</head>
+<body>
+	<h1>Sorry, your request is not found!</h1>
+	<p>It will be <span id="return"></span>s to return <a href="https://www.duckduckgo.com">www.duckduckgo.com</a></p>
+</body>
+</html>

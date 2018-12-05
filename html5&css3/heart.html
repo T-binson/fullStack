@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>heart</title>
+	<style>
+		.heart {
+			width: 100px;
+			height: 200px;
+			margin: 0 auto;
+			/*border: 1px solid #ccc;*/
+			position: relative;
+			text-align: center;
+			line-height: 100px;
+		}
+		.heart::before,.heart::after {
+			content: "I LOVE";
+			width: 130px;
+			height: 200px;
+			border-radius: 100px 100px 0 0;
+			position: absolute;
+			background-color: red;
+			left: -40px;
+			top: 16px;
+			transform: rotate(-45deg);
+		}
+		.heart::after {
+			content: "YOU!";
+			left: 9px;
+			transform: rotate(45deg);
+		}
+		.box {
+			width: 100px;
+			height: 100px;
+			margin: 50px auto;
+			border: 40px solid red;
+			border-right: none;
+			border-bottom-right-radius: 150px;
+		}
+		.box1 {
+			width: 10px;
+			height: 10px;
+			margin: 20px auto;
+			/*background-color: red;*/
+			border: 50px solid red;
+			border-radius: 50% 0% 0% 50%;
+			border-right: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="heart"></div>
+	<div class="box"></div>
+	<div class="box1"></div>
+</body>
+</html>

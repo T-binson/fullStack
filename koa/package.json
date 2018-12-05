@@ -1,0 +1,25 @@
+{
+  "name": "koa_study",
+  "version": "0.0.1",
+  "description": "koa study",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "koa"
+  ],
+  "author": "t-binson@outlook.com",
+  "license": "ISC",
+  "devDependencies": {
+    "koa": "^2.6.2",
+    "koa-better-body": "^3.0.4",
+    "koa-convert": "^1.2.0",
+    "koa-ejs": "^4.1.2",
+    "koa-mysql": "^1.0.3",
+    "koa-route": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "koa-session": "^5.10.0",
+    "koa-static": "^5.0.0"
+  }
+}

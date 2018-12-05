@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>merry-go-round</title>
+	<style>
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+		.content {
+			margin: 50px auto;
+			width: 980px;
+			
+		}
+		.content .slide {
+			height: 410px;
+			position: relative;
+		}
+		.arrow {
+			/*position: relative;*/
+		}
+		.arrow .prev {
+			width: 76px;
+			height: 112px;
+			position: absolute;
+			left: 0px;
+			top: 50%;
+			margin-top: -56px;
+			z-index: 5;
+			background: url(images/prev.png);
+			opacity: 0;
+		}
+		.arrow .next {
+			width: 76px;
+			height: 112px;
+			position: absolute;
+			right: 0px;
+			top: 50%;
+			margin-top: -56px;
+			z-index: 5;
+			background: url(images/next.png);
+			opacity: 0;
+		}
+		.content ul {
+			list-style: none;
+			/*position: relative;*/
+		}
+		.content ul li {
+			position: absolute;
+			overflow: hidden;
+			left: 190px;
+			top: 0px;
+		}
+		/*.content ul li:nth-child(1) {
+			left: 20px;
+			top: 0px;
+			width: 300px;
+			z-index: 2;
+			opacity: 20;
+		}
+		.content ul li:nth-child(2) {
+			left: 75px;
+			top: 30px;
+			width: 350px;
+			z-index: 3;
+			opacity: 80;
+		}
+		.content ul li:nth-child(3) {
+			width: 720px;
+			left: 130px;
+			top: 60px;
+			z-index: 4;
+			opacity: 100;
+		}
+		.content ul li:nth-child(4) {
+			right: 75px;
+			top: 30px;
+			width: 350px;
+			z-index: 3;
+			opacity: 80;
+		}
+		.content ul li:nth-child(5) {
+			right: 0px;
+			top: 0px;
+			width: 300px;
+			z-index: 2;
+			opacity: 20;
+		}*/
+		.content ul li a {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+	<script type="text/javascript" src="animate.js"></script>
+</head>
+<body>
+	<div class="content">
+		<div class="slide">
+			<div class="arrow">
+				<a href="javascript:void(0)" class="prev"></a>
+				<a href="javascript:void(0)" class="next"></a>
+			</div>
+			<ul>
+				<li><a href="#"><img src="images/l1.jpg" alt=""></a></li>
+				<li><a href="#"><img src="images/l2.jpg" alt=""></a></li>
+				<li><a href="#"><img src="images/l3.jpg" alt=""></a></li>
+				<li><a href="#"><img src="images/l4.jpg" alt=""></a></li>
+				<li><a href="#"><img src="images/l5.jpg" alt=""></a></li>
+			</ul>
+		</div>
+	</div>
+
+	<script>
+		window.onload =function() {
+			var arr = [
+		        {   //  1
+					width: 300,
+					top: 0,
+		            left: 0,
+					opacity: 20,
+					"z-index": 2
+		        },
+		        {  // 2
+					width: 350,
+					top: 30,
+		            left: 65,
+					opacity: 80,
+					"z-index": 3
+		        },
+		        {   // 3
+					width: 720,
+					top: 60,
+		            left: 130,
+					opacity: 100,
+					"z-index": 4
+		        },
+		        {  // 4
+					width: 350,
+					top: 30,
+		            left: 565,
+					opacity: 80,
+					"z-index": 3
+		        },
+		        {   //5
+					width: 300,
+					top: 0,
+		            left: 680,
+					opacity: 20,
+					"z-index": 2
+		        }
+		    ];
+
+	    var arrow = document.querySelector('.arrow');
+	    var slide = document.querySelector('.slide');
+	    var liarr = document.querySelectorAll('li');
+	    var prev = arrow.children[0];
+	    var next = arrow.children[1];
+	    var arrowlen = arrow.children.length;
+	    var flag = true;
+
+	    for (var i = 0; i < arr.length; i++) {
+	    	// arrow.children[i].style.opacity = 1;
+	    	animate(liarr[i],arr[i],function() {
+	    		// flag = true;
+	    	},25);
+		}
+	    slide.onmouseover =function() {
+	    	for (var i = 0; i < arrowlen; i++) {
+		    	// arrow.children[i].style.opacity = 1;
+		    	animate(arrow.children[i],{"opacity": 100},function() {
+		    		// flag = true;
+		    	},25);
+		    }
+		    prev.onclick = function() {
+		    	arr.unshift(arr.pop());
+		    	// flag = true;
+		    	if (flag === true) {
+		    		for (var i = 0; i < arr.length; i++) {
+			    		animate(liarr[i],arr[i],function() {
+			    			// flag = false;
+			    		},25);
+			    		flag = false;
+			    	}
+			    	flag = true;
+		    	}
+		    }
+		    next.onclick = function() {
+		    	arr.push(arr.shift());
+		    	// flag = true;
+		    	if (flag === true) {
+		    		for (var i = 0; i < arr.length; i++) {
+			    		animate(liarr[i],arr[i],function() {
+			    			// flag = false;
+			    		},25);
+			    		flag = false;
+			    	}
+			    	flag = true;
+		    	}
+		    }
+	    };
+	    slide.onmouseout =function() {
+	    	for (var i = 0; i < arrowlen; i++) {
+		    	// arrow.children[i].style.opacity = 0;
+		    	animate(arrow.children[i],{"opacity": 0},function() {
+		    		// flag = true;
+		    	},25);
+		    }		
+	    };
+	}
+		
+	</script>
+</body>
+</html>

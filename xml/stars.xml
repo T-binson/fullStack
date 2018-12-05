@@ -1,0 +1,20 @@
+<!-- <?xml version='1.0' encoding='utf-8'?> -->
+
+<star>
+	<person>
+		<name>Ivy</name>
+		<path>stars/ivy.jpg</path>
+		<profession>actress</profession>
+	</person>
+	<person>
+		<name>Lyan</name>
+		<path>stars/lyan.jpg</path>
+		<profession>actress</profession>
+	</person>
+	<person>
+		<name>Sebrina</name>
+		<path>stars/Manchester_City_Logo.jpg</path>
+		<profession>model</profession>
+	</person>
+	
+</star>

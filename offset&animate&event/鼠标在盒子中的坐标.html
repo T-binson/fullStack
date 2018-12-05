@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>坐标</title>
+	<style>
+		.box {
+			width: 200px;
+			height: 200px;
+			border: 1px solid #0094ff;
+			margin: 40px auto;
+			background-color: #f40;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<p>盒子的X坐标：<span></span></p>
+		<p>盒子的Y坐标：<span></span></p>
+	</div>
+	<script>
+		var box = document.getElementsByClassName('box')[0];
+		var span = document.getElementsByTagName('span');
+		box.onmousemove = function(event) {
+			var event = event || window.event;
+			var pageX = event.pageX || getScroll().left + event.clientX;
+			var pageY = event.pageY || getScroll().top + event.clientY;
+			var targetX = pageX - box.offsetLeft;
+			var targetY = pageY - box.offsetTop;
+			span[0].innerHTML = targetX + "px";
+			span[1].innerHTML = targetY + "px";
+		}
+
+		function getScroll() {
+			if (window.pageYOffset) {
+				return {
+					"top": window.pageYOffset,
+					"left": window.pageXOffset
+				}
+			}else if(document.compatMode === "CSS1Compat") {
+				return {
+					"top": document.documentElement.scrollTop,
+					"left": document.documentElement.scrollLeft
+				}
+			}else {
+				return {
+					"top": document.body.scrollTop,
+					"left": document.body.scrollLeft
+				}
+			}
+		}
+	</script>
+</body>
+</html>

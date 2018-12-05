@@ -1,0 +1,21 @@
+{
+  "name": "verify-code",
+  "version": "1.0.0",
+  "description": "verify code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "verify",
+    "code"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "koa": "^2.6.2",
+    "koa-router": "^7.4.0",
+    "koa-session": "^5.10.0",
+    "koa-static": "^5.0.0"
+  }
+}

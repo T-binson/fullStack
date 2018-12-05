@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>bootstrap</title>
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="../bootstrap.min.css">
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!-- hack -->
+	<!-- [if it IE 9]>
+	<script type="text/javascript" src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script type="text/javascript" src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	<![endif] -->
+
+	<style>
+		.header .row div {
+			border: 1px solid #0094ff;
+			height: 50px;
+			text-align: center;
+			line-height: 50px;
+		}
+		.header .row div a {
+			text-decoration: none;
+			color: #424242;
+		}
+		.header .row div:nth-child(n+3) a {
+			margin-left: 15px;
+		}
+	</style>
+</head>
+<body>
+	<div class="header hidden-md hidden-sm hidden-xs">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-2">
+					<a href="javascript:void(0)">手机微金所</a>
+				</div>
+				<div class="col-md-5">
+					<a href="javascript:void(0)">4006-89-4006（服务时间：9:00-21:00)</a>
+				</div>
+				<div class="col-md-2">
+					<a href="javascript:void(0)">常见问题</a>
+					<a href="javascript:void(0)">财富登陆</a>
+				</div>
+				<div class="col-md-3">
+					<input type="button" class="btn btn-danger btn-sm" value="免费注册">
+					<a href="javascript:void(0)">登录</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- jQuery (necessary for Bootstrap's Javascript plugins) -->
+<script type="text/javascript" src="../jquery.min.js"></script>
+<!-- Include all compiled plugins(below),or include individual files as needed -->
+<script type="text/javascript" src="../bootstrap.min.js"></script>
+</body>
+</html>

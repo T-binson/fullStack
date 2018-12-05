@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="ctx"></canvas>
+
+	<script type="text/javascript">
+		var canvas = document.getElementById('ctx');
+		canvas.height = 500;
+		canvas.width = 500;
+		/*var ctx = canvas.getContext('2d');
+
+		ctx.moveTo(90,10);
+		ctx.lineTo(140,60);
+		ctx.lineTo(40,60);
+		ctx.lineTo(90,10);
+		//消除锯齿方法一
+		ctx.lineTo(140,60);
+
+		ctx.moveTo(230,10);
+		ctx.lineTo(280,60);
+		ctx.lineTo(180,60);
+		//消除锯齿方法二
+		ctx.closePath();	
+
+		ctx.strokeStyle = "#f40";
+		ctx.lineWidth = 10;
+		ctx.stroke();
+		ctx.beginPath();*/
+
+		//封装画矩形方法
+		/*function ractangle(ele,startX,startY,width,height,lineWidth,strokeStyle) {
+			var ctx = ele.getContext('2d');
+			//关闭上一个路径，并开启新的路径
+			ctx.beginPath();
+			//确定起点
+			ctx.moveTo(startX,startY);
+			ctx.lineTo(startX + width,startY);
+			ctx.lineTo(startX + width,startY + height);
+			ctx.lineTo(startX,startY + height);
+			//闭合路径
+			ctx.closePath();
+
+			//线条宽度
+			ctx.lineWidth = lineWidth;
+			//线条颜色
+			ctx.strokeStyle = strokeStyle;
+
+			//绘制图形
+			ctx.stroke();
+		}*/
+
+		function Ractangle(ele,startX,startY,width,height,lineWidth,strokeStyle,fillStyle) {
+			this.ctx = ele.getContext('2d');
+			this.startX = startX;
+			this.startY = startY;
+			this.width = width;
+			this.height = height;
+			this.lineWidth = lineWidth;
+			this.strokeStyle = strokeStyle;
+			this.fillStyle = fillStyle;
+		}
+		Ractangle.prototype.draw = function() {
+			//关闭上一个路径，并开启新的路径
+			this.ctx.beginPath();
+			//确定起点
+			this.ctx.moveTo(this.startX,this.startY);
+			this.ctx.lineTo(this.startX + this.width,this.startY);
+			this.ctx.lineTo(this.startX + this.width,this.startY + this.height);
+			this.ctx.lineTo(this.startX,this.startY + this.height);
+			//闭合路径
+			this.ctx.closePath();
+
+			//线条宽度
+			this.ctx.lineWidth = this.lineWidth;
+			//线条颜色
+			this.ctx.strokeStyle = this.strokeStyle;
+			//填充颜色
+			this.ctx.fillStyle = this.fillStyle;
+
+			//填充图形
+			this.ctx.fill();
+			//绘制图形
+			this.ctx.stroke();
+
+		};
+		var ractangle1 = new Ractangle(canvas,10,80,100,100,2,"skyblue","orange");
+		ractangle1.draw();
+
+		var timer = setInterval(function() {
+			ractangle1.ctx.clearRect(ractangle1.startX,ractangle1.startY,ractangle1.width,ractangle1.height,ractangle1.lineWidth,ractangle1.strokeStyle,ractangle1.fillStyle);
+			ractangle1.startX += 10;
+			ractangle1.draw();
+			if (ractangle1.startX > 200) {
+				clearInterval(timer);
+			}
+		},50)
+
+		/*var ractangle2 = new Ractangle(canvas,150,80,100,100,2,"#00f","red");
+		ractangle2.draw();*/
+	</script>
+</body>
+</html>

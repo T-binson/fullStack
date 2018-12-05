@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas picture</title>
+	<style>
+		body {
+			background-color: #000;
+			text-align: center;
+		}
+		#c1 {
+			background: #fff;
+		}
+	</style>
+<body>
+	<canvas id="c1" width="800" height="600"></canvas>
+
+	<script>
+		window.onload = function() {
+			let canvas = document.getElementById('c1');
+			let gd = canvas.getContext('2d');
+			let img = new Image();
+			img.src = './walking.png';
+			/*img.onload = function() {
+				gd.drawImage(img, 0, 0, 90, 150, 100, 100, 90, 150);
+			}*/
+			img.onload = function() {
+				let frame = 0;
+				let keys = {37: 'l', 38: 'u', 39: 'r', 40: 'd'};
+				let rows = {l: 1, u: 3, r: 2, d: 0};
+				let dir = 'd', speed = 5, x = 100, y = 100;
+				document.onkeydown = function(e) {
+					dir = keys[e.keyCode] || dir;
+				};
+				let timer = setInterval(function() {
+					gd.clearRect(0, 0, canvas.width, canvas.height);
+
+					gd.drawImage(img, 
+						frame * 95, rows[dir] * 158, 95, 158, 
+						x, y, 95, 158
+					);
+					//chang the picture
+					frame++;
+					if (frame === 12) {
+						frame = 0;
+					}
+					//judge the direction and boundary, but transition is not well?
+					switch(dir) {
+						case 'd':
+							y+=speed;
+							if (y > canvas.height) {
+								y = 0;
+							}
+							break;
+						case 'u': 
+							y-=speed;
+							if (y < 0) {
+								y = canvas.height;
+							}
+							break;
+						case 'l':
+							x-=speed;
+							if (x < 0) {
+								x = canvas.width;
+							}
+							break;
+						case 'r':
+							x+=speed;
+							if (x > canvas.width) {
+								x = 0;
+							}
+							break;
+					}
+			}, 100);
+		};
+	};
+	</script>
+</body>
+</html>

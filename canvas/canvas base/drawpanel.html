@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas</title>
+</head>
+<body>
+	<canvas id="canvas" width="800", height="600">your browser do not support canvas.</canvas>
+
+	<script>
+		let canvas = document.getElementById('canvas');
+		let gd = canvas.getContext('2d');
+
+		let lastX, lastY;
+		canvas.onmousedown = function(ev) {
+			lastX = ev.offsetX;
+			lastY = ev.offsetY;
+			canvas.onmousemove = function(ev) {
+				gd.beginPath();
+				gd.moveTo(lastX, lastY);
+				gd.lineTo(ev.offsetX, ev.offsetY);
+				gd.strokeStyle = '#f30';
+				gd.stroke();
+				lastX = ev.offsetX;
+				lastY = ev.offsetY;
+			};
+			canvas.onmouseup = function() {
+				canvas.onmousemove = null;
+				canvas.onmouseup = null;
+			};
+		};
+	</script>
+</body>
+</html>

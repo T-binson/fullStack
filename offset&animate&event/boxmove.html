@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>盒子跟随鼠标移动</title>
+	<style>
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+		body,html {
+			width: 100%;
+			height: 100%;
+		}
+		.box {
+			width: 100px;
+			height: 100px;
+			border-color: 1px solid #f40;
+			background-color: cyan;
+			position: absolute;
+		}
+	</style>
+</head>
+<body>
+	<div class="box"></div>
+	<script>
+		var box = document.getElementsByTagName('div')[0];
+		document.body.onclick = function(event) {
+			var event = event || window.event;
+			// console.log(event);
+			var pageY = event.pageY || getScroll().top + event.clientY;
+			var pageX = event.pageX || getScroll().left + event.clientX;
+			// console.log(pageY,pageX);
+			var targetY = pageY - 40;
+			var targetX = pageX - 40;
+			var timer = null;
+			clearInterval(timer);
+			timer = setInterval(function() {
+				var stepY = (targetY - box.offsetTop)/10;
+				var stepX = (targetX - box.offsetLeft)/10;
+				// console.log(stepX);
+				stepY = stepY > 0?Math.ceil(stepY):Math.floor(stepY);
+				stepX = stepX > 0?Math.ceil(stepX):Math.floor(stepX);
+				box.style.left = box.offsetLeft + stepX + "px";
+				box.style.top = box.offsetTop + stepY + "px";
+				// console.log(1);
+				if (Math.abs(targetY - box.offsetTop) <= Math.abs(stepY) && Math.abs(targetX - box.offsetLeft) <= Math.abs(stepX)) {
+					// console.log(1);
+					box.style.top = targetY + "px";
+					box.style.left = targetX + "px";
+					clearInterval(timer);
+				}
+			},15);
+		}
+
+		function getScroll() {
+			if (window.pageYOffset) {
+				return {
+					"top": window.pageYOffset,
+					"left": window.pageXOffset
+				}
+			}else if(document.compatMode === "CSS1Compat") {
+				return {
+					"top": document.documentElement.scrollTop,
+					"left": document.documentElement.scrollLeft
+				}
+			}else {
+				return {
+					"top": document.body.scrollTop,
+					"left": document.body.scrollLeft
+				}
+			}
+		}
+	</script>
+</body>
+</html>

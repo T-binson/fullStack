@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>d3</title>
+	<script src="./d3.v5.js"></script>
+	<script>
+		/*var data = [1,1,2,3,5,8,13,21];
+		var arcs = d3.pie()(data);
+		console.log(arcs);*/
+		let maps = d3.map([{name: 'blue', age: 42}, {name: 'tom', age: 18}, {name: 'amy', age: 16}], function(item) {return item.name});
+		// console.log(maps.get('tom'));
+		let sets = d3.set([{name: 'blue', age: 42}, {name: 'tom', age: 18}, {name: 'amy', age: 16}], item => item.name);
+		// console.log(sets.has('amy'));
+		
+		//create generator
+		let gennumber = d3.format('f');
+		//use created generator
+		// console.log(gennumber(128));  //128.000000
+		let gentime = d3.timeFormat('%Y-%m-%d %H:%M:%S');
+		// console.log(gentime(Date.now()));
+		let genrandomuniform = d3.randomUniform(); //均值分布
+		let genrandomNormal = d3.randomNormal();	//正态分布/高斯分布
+		alert(genrandomuniform());
+		alert(genrandomNormal());
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

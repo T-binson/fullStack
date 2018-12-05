@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>google icon</title>
+</head>
+<body>
+	<canvas id="can"></canvas>
+
+	<script type="text/javascript">
+		var can = document.getElementById('can');
+		var ctx = can.getContext('2d');
+		can.width = 500;
+		can.height = 500;
+
+		//function: calculate the angle
+		function radian(angle) {
+			return Math.PI/180*angle;
+		}
+
+		ctx.beginPath();
+		ctx.moveTo(105,115);
+		ctx.arc(120,100,50,radian(-20),radian(215),true);
+		ctx.fillStyle = "#f00";
+		ctx.fill();
+
+		ctx.beginPath();
+		ctx.moveTo(125,80);
+		ctx.arc(120,100,50,radian(-25),radian(100));
+		ctx.fillStyle = "#ff0";
+		ctx.fill();
+
+		ctx.beginPath();
+		ctx.moveTo(130,120);
+		ctx.arc(120,100,50,radian(95),radian(215));
+		ctx.fillStyle = "#0f0";
+		ctx.fill();
+
+		ctx.beginPath();
+		ctx.arc(120,100,20,radian(0),radian(360));
+		ctx.fillStyle = "#00f";
+		ctx.strokeStyle = "#fff";
+		ctx.lineWidth = 2;
+		ctx.fill();
+		ctx.stroke();
+
+	</script>
+</body>
+</html>

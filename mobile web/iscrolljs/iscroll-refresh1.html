@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>iscroll</title>
+	<style>
+		.wrapper {
+			height: 300px;
+			width: 300px;
+			overflow: hidden;
+			position: relative;
+			background-color: #ccc;
+		}
+		.content {
+			height: 600px;
+			width: 600px;
+			position: relative;
+			z-index: 2;
+			background-color: #f40;
+		}
+		.dropdown {
+			position: absolute;
+			left: 0;
+			top: 0;
+			line-height: 30px;
+			width: 100%;
+			text-align: center;
+		}
+	</style>
+	<script src="./node_modules/iscroll/build/iscroll-probe.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, labore.</div>
+		<div class="dropdown">xialashuaxin</div>
+	</div>
+
+	<script>
+		let loading = document.getElementsByClassName('dropdown')[0];
+		let content = document.getElementsByClassName('content')[0];
+		let myscroll = new IScroll('.wrapper', {
+			momentum: false,
+			probeType: 3
+		});
+
+		let first = false;
+		myscroll.on('scrollStart', () => {
+			myscroll.endTime = 0;
+			content.style.transition = '';
+			myscroll.on('scroll', fnScroll);
+		});
+
+		function fnScroll() {
+			if (myscroll.endTime === 0) {
+				if (myscroll.y > 50) {
+					first = true;
+					loading.innerHTML = 'loosing';
+				} else {
+					first = false;
+					loading.innerHTML = 'xialashuaxin';
+				}
+			} else {
+				myscroll.off('scroll', fnScroll);
+				if (first) {
+					loading.innerHTML = 'lading...';
+					content.style.top = '30px';
+					setTimeout(function() {
+						content.style.transition = 'all .3s';
+						content.style.top = '0px';
+					}, 3000);
+				} else {
+					content.style.top = '0px';
+				}
+				// myscroll.scrollTo(0, 30);
+			}
+		}
+	</script>
+</body>
+</html>

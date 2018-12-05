@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<style>
+		.box {
+			width: 300px;
+			height: 300px;
+			background-color: #f40;
+			margin: 50px auto;
+		}
+	</style>
+</head>
+<body>
+	<div class="box"></div>
+
+	<script src="./node_modules/hammerjs/hammer.js"></script>
+	<script>
+		let box = document.getElementsByClassName('box')[0];
+		let hammer = new Hammer(box, {});
+		// console.log(hammer);
+		// 快速点击
+		hammer.on('tap', () => {
+			console.log('tap');
+		});
+		//长按
+		hammer.on('press', () => {
+			console.log('press');
+		});
+		//滑动
+		hammer.on('pan', (ev) => {
+			console.log('pan');
+		});
+		//拖拽
+		hammer.on('swipe', (ev) => {
+			console.log('swipe');
+		});
+		//捏
+		hammer.on('pinch', () => {
+			console.log('pinch');
+		});
+		//旋转
+		hammer.on('rotate', () => {
+			console.log('rotate');
+		});
+	</script>
+</body>
+</html>

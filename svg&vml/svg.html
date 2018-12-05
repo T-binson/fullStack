@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>svg base</title>
+	<style>
+		.l1 {
+			stroke: red;
+			stroke-width: 10;
+		}
+	</style>
+</head>
+<body>
+	<svg width=800 height=600>
+		<line class='l1' x1="100" y1="100" x2="500" y2="500"></line>
+	</svg>
+
+	<script>
+		let l1 = document.getElementsByClassName('l1')[0];
+		let x1 = l1.getAttribute('x1');
+		alert(x1);
+		l1.setAttribute('x2', 300);
+		//only can use getAttribute and setAttribute methods 
+	</script>
+</body>
+</html>

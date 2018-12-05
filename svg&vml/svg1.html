@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>svg</title>
+</head>
+<style>
+	 line {
+		/*stroke: green;*/
+		stroke-width: 10;
+	} 
+</style>
+<script>
+	window.onload = function() {
+		let line = document.getElementsByClassName('l1')[0];
+		line.addEventListener('mouseenter', function() {
+			this.setAttribute('stroke', 'red');
+		},false);
+		line.addEventListener('mouseleave', function() {
+			this.setAttribute('stroke', 'green');
+		},false);
+	}
+</script>
+<body>
+	<svg width='800' height='600'>
+		<!-- recommend the style with style tag -->
+		<!-- stroke表示的属性优先级最低，甚至低于*选择器 -->
+		<line class='l1' x1='100' y1='100' x2='300' y2='300' stroke="red"></line>
+	</svg>
+</body>
+</html>

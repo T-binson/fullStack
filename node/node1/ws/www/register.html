@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>register</title>
+	<script src="./jquery-3.3.1.min.js"></script>
+	<script>
+		$(function() {
+			$('.reg').click(function() {
+				$.ajax({
+					url: '/reg',
+					data: {user: $('.user').val(), pass: $('.pass').val()},
+					datatype: 'json',
+					success(res) {
+						let data = JSON.parse(res);
+						if (data.code) {
+							alert(data.msg);
+						} else {
+							alert(data.msg);
+						}
+					},
+					error(err) {
+						alert('failed');
+					}
+				})
+			});
+			$('.login').click(function() {
+				$.ajax({
+					url: '/login',
+					data: {user: $('.user').val(), pass: $('.pass').val()},
+					datatype: 'json',
+					success(res) {
+						let data = JSON.parse(res);
+						if (data.code) {
+							alert(data.msg);
+						} else {
+							alert(data.msg);
+						}
+					},
+					error(err) {
+						alert('failed');
+					}
+				})
+			});
+		})
+	</script>
+</head>
+<body>
+	<p>username: <input type="text" name="user" class="user"></p>
+	<p>password: <input type="password" name="pass" class="pass"></p>
+	<p><input type="submit" value="register" class="reg"> <input type="submit" value="login" class="login"></p>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>rotate touches</title>
+	<style>
+		body {
+			height: 1000px;
+		}
+		.box {
+			width: 300px;
+			height: 300px;
+			margin: 100px auto;
+			background-color: #f00;
+		}
+	</style>
+</head>
+<body>
+	<!-- tan(ang) = (x1- x2) / (y1 - y2) -->
+	<div class="box">rotate</div>
+
+	<script>
+		let box = document.getElementsByClassName('box')[0];
+		let lastAngle = 0;
+		rotate(box);
+
+		function rotate(obj) {
+			obj.addEventListener('touchstart', function(e) {
+				e.preventDefault();
+				let startAngle, ang1, ang2;
+				if (e.targetTouches.length >= 2) {
+					let a = e.targetTouches[0].clientX - e.targetTouches[1].clientX;
+					let b = e.targetTouches[0].clientY - e.targetTouches[1].clientY;
+					ang1 = Math.atan2(b, a)*180/Math.PI;
+					startAngle = lastAngle;
+				}
+				function fnmove(e) {
+					e.preventDefault();
+					if (e.targetTouches.length >= 2) {
+						let a = e.targetTouches[0].clientX - e.targetTouches[1].clientX;
+						let b = e.targetTouches[0].clientY - e.targetTouches[1].clientY;
+						ang2 = Math.atan2(b, a)*180/Math.PI;
+						lastAngle = startAngle + ang2 - ang1;
+						obj.style.transform = `rotate(${lastAngle}deg)`;
+					}
+				};
+				function fnend(e) {
+					obj.removeEventListener('touchmove', fnmove, false);
+					obj.removeEventListener('touchend', fnend, false);
+				}
+				obj.addEventListener('touchmove', fnmove, false);
+				obj.addEventListener('touchend', fnend, false);
+			});
+		}
+	</script>
+</body>
+</html>

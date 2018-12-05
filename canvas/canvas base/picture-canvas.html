@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas picture</title>
+	<style>
+		body {
+			background-color: #000;
+			text-align: center;
+		}
+		#c1 {
+			background: #fff;
+		}
+	</style>
+<body>
+	<canvas id="c1" width="800" height="600"></canvas>
+	<!-- <img src="./l4.jpg" alt=""> -->
+
+	<script>
+		window.onload = function() {
+			// let img = document.getElementsByTagName('img')[0];
+			let canvas = document.getElementById('c1');
+			let gd = canvas.getContext('2d');
+			let img = new Image();
+			img.src = './l4.jpg';
+			img.onload = function() {
+				gd.drawImage(img,0,0);
+			}
+		}
+	</script>
+</body>
+</html>

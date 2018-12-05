@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>iscroll</title>
+	<style>
+		.wrapper {
+			height: 300px;
+			width: 300px;
+			overflow: hidden;
+			position: relative;
+			background-color: #ccc;
+		}
+		.content {
+			height: 600px;
+			width: 600px;
+			position: relative;
+			z-index: 2;
+			background-color: #f40;
+		}
+		.dropdown {
+			position: absolute;
+			left: 0;
+			top: 0;
+			line-height: 30px;
+			width: 100%;
+			text-align: center;
+		}
+	</style>
+	<script src="./node_modules/iscroll/build/iscroll-probe.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, labore.</div>
+		<div class="dropdown">xialashuaxin</div>
+	</div>
+
+	<script>
+		let loading = document.getElementsByClassName('dropdown')[0];
+		let myscroll = new IScroll('.wrapper', {
+			momentum: false,
+			probeType: 2
+		});
+		let lastScrollY = 0;
+		myscroll.on('scrollStart', () => {
+			lastScrollY = 0;
+		});
+		myscroll.on('scroll', function() {
+			// console.log(myscroll.x, myscroll.y);
+			if (myscroll.y > 50) {
+				loading.innerHTML = 'loosing';
+			} else {
+				loading.innerHTML = 'xialashuaxin';
+			}
+			lastScrollY = myscroll.y;
+		});
+		myscroll.on('scrollEnd', () => {
+			if (lastScrollY > 50) {
+				alert('loading...');
+			} else {
+				alert('not loading....');
+			}
+		})
+	</script>
+</body>
+</html>

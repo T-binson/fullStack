@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>floors jump</title>
+	<style>
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+		body,html {
+			width: 100%;
+			height: 100%
+		}
+		ul {
+			list-style: none;
+			width: 100%;
+			height: 100%;
+		}
+		ul li {
+			width: 100%;
+			height: 100%
+		}
+		ol {
+			list-style: none;
+			position: fixed;
+			right: 0px;
+			top: 50%;
+		}
+		ol li {
+			width: 30px;
+			height: 30px;
+			border: 1px solid #000;
+			text-align: center;
+			line-height: 30px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li>1Fhere!</li>
+		<li>2Fhere!</li>
+		<li>3Fhere!</li>
+		<li>4Fhere!</li>
+		<li>5Fhere!</li>
+		<li>6Fhere!</li>
+		<li>7Fhere!</li>
+	</ul>
+	<ol>
+		<li>1F</li>
+		<li>2F</li>
+		<li>3F</li>
+		<li>4F</li>
+		<li>5F</li>
+		<li>6F</li>
+		<li>7F</li>
+	</ol>
+
+	<script>
+		var ul = document.getElementsByTagName('ul')[0];
+		var ol = document.getElementsByTagName('ol')[0];
+		var ulliArr  = ul.children,
+			olliArr = ol.children,
+			len = ulliArr.length,
+			colorArr = ["red","orange","yellow","green","blue","cyan","purple"];
+		var distance = 0,target = 0,timer=null;
+		window.onscroll = function(argument) {
+			distance = getScroll().top;
+		}
+		for (var i = 0; i < len; i++) {
+			ulliArr[i].style.backgroundColor = colorArr[i];
+			olliArr[i].style.backgroundColor = colorArr[i];
+			olliArr[i].index = i;
+			olliArr[i].onclick = function() {
+				target = ulliArr[this.index].offsetTop;
+				// console.log(target);
+				clearInterval(timer);
+				timer = setInterval(function(argument) {
+					var speed = (target - distance)/10;
+					speed = speed > 0?Math.ceil(speed):Math.floor(speed);
+					distance +=speed;
+					// console.log(distance);
+					window.scrollTo(0,distance);
+					// console.log(distance);
+					// console.log(1);
+					if (Math.abs(target - distance) <= Math.abs(speed)) {
+						window.scrollTo(0,target);
+						clearInterval(timer);
+					}
+				},25);
+			}
+		}
+
+		function getScroll() {
+			if (window.pageYOffset) {
+				return {
+					"top": window.pageYOffset,
+					"left": window.pageXOffset
+				}
+			}else if(document.compatMode === "CSS1Compat") {
+				return {
+					"top": document.documentElement.scrollTop,
+					"left": document.documentElement.scrollLeft
+				}
+			}else {
+				return {
+					"top": document.body.scrollTop,
+					"left": document.body.scrollLeft
+				}
+			}
+		}
+	</script>
+</body>
+</html>

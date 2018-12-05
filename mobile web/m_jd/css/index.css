@@ -1,0 +1,288 @@
+/* 最外层的容器 */
+.jd_ontainer{
+    width: 100%;
+    min-height: 800px;
+    background-color: #eee;
+}
+
+/* 顶部通栏 */
+.header{
+    height: 40px;
+    width: 100%;
+    background-color: rgb(201, 21, 35,0);
+    /* 要固定在顶部 所以 改为 fixed */
+    position: fixed;
+    z-index: 99;
+    /* 设置pading 把input 挤进去 */
+    padding-left: 70px;
+    padding-right: 60px;
+}
+.header .logo{
+    width: 60px;
+    height: 36px;
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    /* background-color: orange; */
+    /* 设置背景图片 */
+    background-image: url('../images/sprites.png');
+    background-repeat: no-repeat;
+    background-position: 0 -103px;
+
+    /* 设置 背景图片的 大小 压缩了一倍 目的是 为了 防止 用户看到 像素颗粒 */
+    /* 如果要一行写完 background  如果要写size  要加/ */
+    background-size: 200px 200px;
+}
+.header input[type=search]{
+    width: 100%;
+    height: 30px;
+    margin-top: 5px;
+    border-radius: 15px;
+    /* 内容挤到右边 */
+    padding-left: 25px;
+}
+.header .login{
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    line-height: 40px;
+    color: white;
+    font-size: 17px;
+}
+.header .icon-search {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background-image: url('../images/sprites.png');
+    background-size: 200px 200px;
+    background-position: -60px -109px;
+    background-repeat: no-repeat;
+    top: 10px;
+    left: 75px;
+}
+
+/* 轮播图 */
+.banner{
+    width: 100%;
+    /* 100px */
+    overflow: hidden;
+    /* 为了 索引 能够定位 所以 添加 positition */
+    position: relative;
+}
+.banner .banner-images{
+    /* 10倍宽度 为了 在横向 放10张图片 */
+    width: 1000%;
+    /* 1000px */
+    transform: translateX(-10%);
+}
+.banner .banner-images li{
+    float: left;
+    width: 10%;
+    /* 100px */
+}
+.banner .banner-images li a{
+    display: block;
+    width: 100%;
+}
+.banner .banner-images li a img{
+    display: block;
+    width: 100%;
+}
+/* 轮播图里面的 索引标签 */
+.banner .index{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    margin-left: -44px;
+}
+.banner .index li{
+    float: left;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    border: 1px solid white;
+    margin-left: 5px;
+}
+/* 如果 li标签 有.current class 会使用 下列样式
+    注意 .current 不能 空格
+ */
+.banner .index li.current{
+    background-color: white;
+}
+
+/* 导航 */
+.nav{
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    background-color: white;
+}
+.nav .nav-items {
+    width: 100%;
+    /* 把内容 压下来 */
+    padding-top: 5px;
+}
+.nav .nav-items li{
+    float: left;
+    width: 25%;
+}
+.nav .nav-items li a{
+    width: 100%;
+    display: block;
+}
+.nav .nav-items li a img{
+    width: 60%;
+    display: block;
+    margin: 0 auto;
+}
+.nav .nav-items li a p{
+    color: gray;
+    text-align: center;
+    padding:5px 0 ;
+}
+
+/* 设置 京东 首页的主要内容的 样式 */
+.main{
+    width: 100%;
+    padding: 0 5px;
+    margin-top: 10px;
+}
+.main .content{
+    width: 100%;
+    background-color: white;
+    min-height: 150px;
+    margin-bottom: 5px;
+    /* 阴影 */
+    box-shadow: 0 0 2px gray;
+}
+.main .content .top{
+    height: 32px;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+}
+.main .content .bottom{
+    width: 100%;
+}
+
+/* 内容区域的 第一个 盒子 */
+.main .content:nth-child(1) .top{
+    border-bottom: none;
+}
+.main .content:nth-child(1) .top span{
+    background-image: url('../images/seckill-icon.png');
+    background-size: 20px 25px;
+    float: left;
+    margin-top: 3.5px;
+    margin-left: 5px;
+    width: 20px;
+    height: 25px;
+}
+.main .content:nth-child(1) .top p{
+    color:  rgb(201, 21, 35);
+    margin-left: 5px;
+    line-height: 32px;
+    float: left;
+}
+.main .content:nth-child(1) .top ul{
+    height: 32px;
+    padding-top:8.5px ;
+    float: left;
+}
+.main .content:nth-child(1) .top ul li{
+    float: left;
+    background-color: black;
+    height: 15px;
+    width: 15px;
+    color: white;
+    margin-left: 3px;
+    text-align: center;
+    line-height: 15px;
+}
+/* 这样可以去到 第三个 第六个 */
+.main .content:nth-child(1) .top ul li:nth-child(3n){
+    background-color: transparent;
+    color: black;
+}
+.main .content:nth-child(1) .top a{
+    color: gray;
+    line-height: 32px;
+    margin-right: 5px;
+    float: right;
+}
+.main .content:nth-child(1) .bottom{
+    width: 100%;
+}
+.main .content:nth-child(1) .bottom ul{
+    width: 100%;
+}
+.main .content:nth-child(1) .bottom ul li{
+    float: left;
+    /* 为了保证 零头 不影响 布局
+        假设 给的是33% 
+            父盒子的宽度是 100
+            父盒子的宽度是 1000 
+     */
+    width: 33.33333%;
+}
+.main .content:nth-child(1) .bottom ul li a{
+    display: block;
+    width: 100%;
+    border-right: 1px solid gray;
+}
+/* 最后一个li标签 里面的 a标签 不要 右边的 边框 */
+.main .content:nth-child(1) .bottom ul li:last-child a{
+    border-right: none;
+}
+.main .content:nth-child(1) .bottom ul li a img{
+    display: block;
+    width: 60%;
+    margin: 0 auto;
+}
+/* 由于 a标签 跟p标签 是平级的 所以这里 写的是2 a标签的索引值是1 */
+.main .content:nth-child(1) .bottom ul li  p{
+    text-align: center;
+    padding: 3px 0;
+    font-size: 12px;
+}
+.main .content:nth-child(1) .bottom ul li  p:nth-child(2){
+    color:  rgb(201, 21, 35);
+}
+.main .content:nth-child(1) .bottom ul li  p:nth-child(3){
+    color: black;
+    text-decoration: line-through;
+}
+
+/* 为 除了 第一个的 主要区域盒子 设置样式 */
+.main .content:nth-child(n+2) .top span{
+    color:rgb(201, 21, 35);
+    line-height: 32px;
+    margin-left: 15px;
+    position: relative;
+}
+.main .content:nth-child(n+2) .top span::before{
+    content: '';
+    position: absolute;
+    /* 宽高 */
+    height: 15px;
+    width: 3px;
+    background-color: rgb(201, 21, 35);
+    left: -10px;
+    top: 2px;
+}
+/* 设置 除了秒杀区域的 主要内容的 底部样式 */
+.main .content:nth-child(n+2) .bottom{
+    width: 100%;
+}
+.main .content:nth-child(n+2) .bottom ul{
+    width: 100%;
+}
+.main .content:nth-child(n+2) .bottom ul li{
+    width: 50%;
+}
+.main .content:nth-child(n+2) .bottom ul li a{
+    width: 100%;
+    display: block;
+}
+.main .content:nth-child(n+2) .bottom ul li a img{
+    width: 100%;
+    display: block;
+}

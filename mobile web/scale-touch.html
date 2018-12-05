@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>scale touches</title>
+	<style>
+		body {
+			height: 1000px;
+		}
+		.box {
+			width: 300px;
+			height: 300px;
+			margin: 100px auto;
+			background-color: #f00;
+		}
+	</style>
+</head>
+<body>
+	<!-- (x1 -x2)^2 + (y1 -y2)^2 = dis1^2 -->
+	<!-- (x3 -x4)^2 + (y3 -y4)^2 = dis2^2 -->
+	<!-- dis1/dis2 = w1/w2 = h1/h2 -->
+
+	<div class="box">scale box</div>
+
+	<script>
+		let box = document.getElementsByClassName('box')[0];
+		scale(box);
+
+		function scale(obj) {
+			obj.addEventListener('touchstart', function(e) {
+				e.preventDefault();
+				let  dis1, dis2, w, h;
+				if (e.targetTouches.length >= 2) {
+					let a = e.targetTouches[0].clientX - e.targetTouches[1].clientX;
+					let b = e.targetTouches[0].clientY - e.targetTouches[1].clientY;
+					dis1 = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+					w = obj.offsetWidth;
+					h = obj.offsetHeight;
+				}
+				function fnmove(e) {
+					e.preventDefault();
+					if (e.targetTouches.length >= 2) {
+						let a = e.targetTouches[0].clientX - e.targetTouches[1].clientX;
+						let b = e.targetTouches[0].clientY - e.targetTouches[1].clientY;
+						dis2 = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+						let ratio = dis2/dis1;
+						obj.style.width = w * ratio + 'px';
+						obj.style.height = h * ratio + 'px';
+					}
+				};
+				function fnend(e) {
+					obj.removeEventListener('touchmove', fnmove, false);
+					obj.removeEventListener('touchend', fnend, false);
+				}
+				obj.addEventListener('touchmove', fnmove, false);
+				obj.addEventListener('touchend', fnend, false);
+			});
+		}
+	</script>
+</body>
+</html>

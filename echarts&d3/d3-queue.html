@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>d3 queue</title>
+	<script src="./d3.v5.js"></script>
+	<script>
+		//queue dismissed
+		let queues = d3.queue();
+		queues.defer(function(a, b, cb) {
+			setTimeout(function() {
+				cb(null, a+b);
+			}, 500);
+		}, 12, 34);
+		queues.defer((num, cb) => {
+			setTimeout(() => {
+				cb(null, num*5);
+			}, 1000)
+		}, 5);
+		queues.await((err, ...arg) => {
+			console.log(err);
+			console.log(arg);
+		});
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

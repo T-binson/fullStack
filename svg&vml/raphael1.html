@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>raphael</title>
+	<script src="./raphael.js"></script>
+	<script>
+		window.onload =function() {
+			//创建画布
+			var paper = Raphael(0, 0, 800, 600);
+			//定义图形
+			var rect = paper.rect(100, 100, 400, 300, 10);
+			//类似于jquery中的操作
+			//属性/样式
+			//设置样式
+			rect.attr('fill', '#0f0');
+			//获取样式
+			// alert(rect.attr('fill'));
+			//添加事件
+			function fn() {
+				console.log(this);
+				// this.attr('fill','#f40');
+				this.attr({fill: '#f40', width: '200', ehight: '150'});
+				rect.unclick(fn);
+			}
+			rect.click(fn);
+			rect.click(function() {
+				console.log('click');
+			});
+		};
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

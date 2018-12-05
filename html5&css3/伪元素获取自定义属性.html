@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>伪元素获取自定义属性</title>
+	<style>
+		body {
+			background-color: #eee;
+		}
+		.box {
+			width: 320px;
+			height: 100px;
+			margin: 30px auto;
+		}
+		.box span {
+			float: left;
+			width: 80px;
+			height: 80px;
+			line-height: 80px;
+			font-size: 60px;
+			font-family: "Microsoft YaHei";
+			/*font-weight: 600;*/
+			text-align: center;
+			position: relative;
+		}
+		.box span::before,.box span::after {
+			content: attr(data-text);
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 80px;
+			height: 80px;
+			line-height: 80px;
+			font-size: 60px;
+			font-family: "Microsoft YaHei";
+			color: #fff;
+			/*font-weight: 600;*/
+			text-align: center;
+			transform-origin: left center;
+			transition: all 1s;
+		}
+		.box:hover span::before {
+			transform: rotateY(10deg) skew(0deg,20deg);
+			color: rgba(0,0,0,.3);
+		}
+		.box:hover span::after {
+			transform: rotateY(30deg) skew(0deg,15deg);
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<span data-text="笑">笑</span>
+		<span data-text="傲">傲</span>
+		<span data-text="江">江</span>
+		<span data-text="湖">湖</span>
+	</div>
+</body>
+</html>

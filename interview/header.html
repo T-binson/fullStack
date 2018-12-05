@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>header</title>
+	<script>
+		/*function* headers(i) {
+			alert(i);
+			console.log(`<h${i}>我是标题H${i}</h${i}>`);
+		}
+		for(let i = 1; i<7;i++) {
+			headers(i).next();
+		}*/
+		/*let arr = [];
+		for(let i =1;i<7;i++) {
+			arr.push((i) => {
+				alert(i);
+				document.write(`<h${i}>我是标题H${i}</h${i}>`);
+			});
+		}
+		let n = 0;
+		while(n<6) {
+			arr[n](n+1);
+			n++;
+		}*/
+
+		/*function headers(i) {
+			return new Promise((resolve,reject) => {
+				alert(i);
+				resolve(i);
+			});
+		};
+		for(i = 1;i<7;i++) {
+			headers(i).then((i) => {
+			document.write(`<h${i}>我是标题H${i}</h${i}>`);
+		});
+		}*/
+	</script>
+</head>
+<body>
+	<script>
+/*		function headers(i) {
+			return new Promise((resolve,reject) => {
+				alert(i);
+				resolve(i);
+			});
+		};
+		headers(1)
+		.then((i) => {
+			document.write(`<h${i}>我是标题H${i}</h${i}>`);
+			return i + 1;
+		})
+		.then((i) => {
+			document.write(`<h${i}>我是标题H${i}</h${i}>`);
+			alert(i);
+		})*/
+
+		/*async function headers(i) {
+			await alert(i);
+			await document.write(`<h${i}>我是标题H${i}</h${i}>`);
+			return i + 1;
+		}
+		headers(1).then((i) => {
+			alert(i);
+			document.write(`<h${i}>我是标题H${i}</h${i}>`);
+		})*/
+
+		/*let body = document.getElementsByTagName('body')[0];
+		for(let i = 1;i<7;i++) {
+			let h = document.createElement(`h${i}`);
+			h.innerHTML = `我是标题H${i}`;
+			body.appendChild(h);
+		};*/
+		function hee(i,callback) {
+			alert(i);
+			callback(i);
+			if(i<6) {
+				hee(++i,callback);
+			}
+		}
+		function a(i) {document.write(`<h${i}>我是标题H${i}</h${i}>`);}
+		hee(1,a);
+	</script>
+</body>
+</html>

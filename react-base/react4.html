@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>components</title>
+	<script src="./babel.min.js"></script>
+	<script src="./react.development.js"></script>
+	<script src="./react-dom.development.js"></script>
+</head>
+<style>
+	.div1 {
+		width: 200px;
+		height: 200px;
+	}
+</style>
+<body>
+	<div class="box"></div>
+	<script type="text/babel">
+		class Test extends React.Component {
+			constructor(...arg) {
+				super(...arg);
+				this.state = {a: 1, b: 2, bol: false};
+			}
+			fn() {
+				this.setState({
+					a: this.state.a+1
+				});
+			}
+			change() {
+				this.setState({
+					bol: !this.state.bol
+				});
+			}
+			render() {
+				console.log('render!!!');
+				let arr = ['box', 'div2'];
+				return <div>
+					<div className='div1' style={{background: this.state.bol?"green": 'red'}}></div>
+					<div className={arr.join(' ')}></div>
+					<input type="button" value='change' onClick={this.change.bind(this)} />
+					<input type="button" value='button' onClick={this.fn.bind(this)} />
+				</div>;
+			}
+		}
+		let box = document.getElementsByClassName('box')[0];
+		ReactDOM.render(<Test a="text"></Test>, box);
+	</script>
+</body>
+</html>

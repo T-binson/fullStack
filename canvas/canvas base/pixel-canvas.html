@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>pixel picture</title>
+</head>
+<body>
+	<canvas id="c1" width="800" height="600"></canvas>
+
+	<script>
+		let canvas = document.getElementById('c1');
+		let gd = canvas.getContext('2d');
+		let img = new Image();
+		img.src = './l4.jpg';
+		img.onload = function() {
+			gd.drawImage(img, 0, 0);
+			let imgdata = gd.getImageData(0, 0, 720, 350);
+			// console.log(imgdata);
+			// console.log(imgdata.data)
+			// console.log(imgdata.data[0*4+0], imgdata.data[0*4+1], imgdata.data[0*4+2], imgdata.data[0*4+3]);
+			console.log(
+				imgdata.data[(349*720+1)*4+0],
+				imgdata.data[(349*720+1)*4+1],
+				imgdata.data[(349*720+1)*4+2],
+				imgdata.data[(349*720+1)*4+3]);
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>scrolltop</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			width: 100%;
+		}
+		.ad {
+			position: absolute;
+			width: 100px;
+			height: 250px;
+			border: 1px solid #000;
+			background-color: rgb(201,35,42);
+		}
+		.ad:first-child {
+			left: 0;
+			top: 250px;
+		}
+		.ad:nth-child(2) {
+			right: 0;
+			top: 250px;
+		}
+		.top {
+			width: 100%;
+			height: 100px;
+			border: 1px solid #f40;
+			box-sizing: border-box;
+		}
+		#nav {
+			width: 100%;
+			height: 45px;
+			background-color: skyblue;
+		}
+		.fixed {
+			position: fixed;
+			left: 0;
+			top: 0;
+		}
+		#nav ul {
+			list-style: none;
+			width: 810px;
+			margin: 0 auto;
+			overflow: hidden;
+		}
+		#nav ul li {
+			float: left;
+			height: 45px;
+			width: 100px;
+			text-align: center;
+		}
+		#nav ul li a {
+			display: block;
+			width: 70px;
+			height: 45px;
+			line-height: 45px;
+			text-decoration: none;
+			color: #424242;
+		}
+		.main {
+			height: 3000px;
+			width: 70%;
+			margin: 0 auto;
+			margin-top: 20px;
+			background-color: #00f;
+		}
+		.rocket {
+			width: 50px;
+			height: 100px;
+			border: 1px solid #000;
+			position: fixed;
+			right: 20px;
+			bottom: 50px;
+			cursor: pointer;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<a href="#" class="ad"><img src="#" alt=""></a>
+	<a href="#" class="ad"><img src="#" alt=""></a>
+	<div class="top"><img src="#" alt=""></div>
+	<div id="nav">
+		<ul>
+			<li><a href="#">navigation1</a></li>
+			<li><a href="#">navigation2</a></li>
+			<li><a href="#">navigation3</a></li>
+			<li><a href="#">navigation4</a></li>
+			<li><a href="#">navigation5</a></li>
+			<li><a href="#">navigation6</a></li>
+			<li><a href="#">navigation7</a></li>
+		</ul>
+	</div>
+	<div class="main">
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis recusandae cupiditate voluptatum modi magnam, praesentium dolor! Itaque minus, hic commodi ex dolores omnis, et facere nam qui, ipsum aliquid consequatur error? Repellendus in ratione aut quos temporibus sint illo vero dolorem omnis atque totam architecto nostrum sunt voluptatibus quia odit nesciunt laboriosam distinctio repellat pariatur, corrupti cum error. Voluptas voluptatem aperiam officia illo possimus! Mollitia temporibus quasi labore quis quae atque facere autem consequatur! Voluptate fugiat, quam in quas labore sit id nisi officiis ratione autem ipsum quaerat, ex nesciunt? Qui nesciunt expedita totam quidem aperiam in, consectetur quas incidunt mollitia sapiente vel odio at sed, error! Ipsa quam beatae est ab, assumenda nulla non vero repellendus at culpa deleniti itaque vel necessitatibus perspiciatis id natus, excepturi enim quidem tenetur! Veritatis, ipsa dicta, necessitatibus optio ipsum unde atque. Veniam laborum ab, recusandae odio, laboriosam dignissimos rem asperiores incidunt iste perspiciatis ratione vitae, quia assumenda cum harum? Nostrum dolores consequatur, inventore mollitia magnam porro nihil nisi aliquid quibusdam quam incidunt, quisquam placeat odit soluta tempore assumenda fugiat officia. Iusto id sapiente repellendus fuga dolor natus provident quisquam officia voluptates accusantium, veniam, in voluptate fugiat quidem nesciunt libero, neque, earum nam magni. Autem ex pariatur saepe nisi harum porro sunt consequatur. Voluptatum debitis similique aliquid, alias dignissimos exercitationem laudantium quam ut magni excepturi quasi repellendus hic, odit! Mollitia totam fugit iste ab minus, repudiandae hic aut commodi! Saepe consequuntur, assumenda soluta dolores. Incidunt commodi ab placeat cumque quae qui, quos facilis aliquam tempore quis distinctio impedit corporis quas blanditiis, non tempora dicta. Fuga consequuntur atque laudantium nam quaerat esse dolor quidem repellendus, maxime neque similique reiciendis quos est laborum, nulla dicta veritatis ad, error eaque. Ipsa voluptatibus, quibusdam debitis sed illum adipisci omnis expedita consequuntur veritatis? Veniam et id maiores molestias, ratione laudantium. Repudiandae quasi ad natus aperiam, fuga, commodi nesciunt placeat adipisci amet laborum molestiae eveniet eum impedit odit non sint dicta sequi soluta mollitia illum illo porro dolore. Provident possimus, iste doloribus nemo ut ipsa molestiae cum doloremque numquam, recusandae minima libero quibusdam fugit error eius praesentium sunt placeat quod ratione, aliquam a. Dolorum culpa, nesciunt aspernatur deleniti officiis accusantium doloribus illo exercitationem cum nam deserunt! Enim, voluptatem! Unde magnam tempore atque veritatis, qui similique possimus aperiam ad, voluptatem, voluptates dicta repellat. Beatae minima, nostrum incidunt similique praesentium ad debitis reprehenderit, porro ipsa aliquid aspernatur et inventore laborum, eligendi ducimus dolorum repudiandae? Sequi, porro consectetur explicabo, modi aperiam rerum a tenetur tempora laudantium ratione blanditiis cum qui nam excepturi ipsa. Tempore suscipit officia ducimus iste, facilis eius, cumque accusamus earum aliquam officiis nihil totam odio debitis non deleniti! Quisquam, eligendi vel ad, provident est magnam dolorem explicabo ab sint doloribus similique nostrum veniam sunt laudantium rem a nam ducimus, odit consequatur totam praesentium quia inventore! Blanditiis quas praesentium perspiciatis sit? Laudantium qui nobis quo a quis impedit reprehenderit nulla, soluta sint. Doloremque necessitatibus neque dolores odit ullam explicabo dolore consequatur, enim ea reiciendis ratione iste, repellendus eius saepe delectus. Dolore.
+	</div>
+	<div class="rocket">top</div>
+
+	<script>
+		var ad = document.getElementsByClassName('ad');
+		var topDiv = document.getElementsByClassName('top')[0];
+		var topHeight = topDiv.offsetHeight;
+		var nav = document.getElementById('nav');
+		var main = document.getElementsByClassName('main')[0];
+		
+
+		window.onscroll = function(argument) {
+			//滚动超过一定距离固定导航栏
+			if(getScroll().top > topHeight) {
+				nav.className = "fixed";
+				main.style.paddingTop = nav.offsetHeight + "px";
+			}else {
+				nav.className = "";
+				main.style.paddingTop ="";
+			}
+			//固定左右广告栏
+			animate(ad[0],getScroll().top + 250,"top");
+			animate(ad[1],getScroll().top + 250,"top");
+			//过渡动画返回顶部
+			var rocket = document.getElementsByClassName('rocket')[0];
+			if (getScroll().top > 250) {
+				rocket.style.display = "block";
+				var timer = null;
+				rocket.onclick = function() {
+					clearInterval(timer);
+					timer = setInterval(function(argument) {
+						var speed = (0 - getScroll().top)/10;
+						speed = speed > 0?Math.ceil(speed):Math.floor(speed);
+						window.scrollTo(0,getScroll().top + speed);
+						// console.log(1);检测定时器是否停止
+						if(Math.abs(0 - getScroll().top) <= Math.abs(speed)) {
+							window.scrollTo(0,0);
+							clearInterval(timer);
+						}
+					},15)
+				}
+			}else {
+				rocket.style.display = "none";
+			}
+		}
+
+		//获取屏幕滚动距离
+		function getScroll() {
+			if (window.pageYOffset) {
+				return {
+					"top": window.pageYOffset,
+					"left": window.pageXOffset
+				}
+			}else if(document.compatMode === "CSS1Compat") {
+				return {
+					"top": document.documentElement.scrollTop,
+					"left": document.documentElement.scrollLeft
+				}
+			}else {
+				return {
+					"top": document.body.scrollTop,
+					"left": document.body.scrollLeft
+				}
+			}
+		}
+		//缓动动画
+		function animate(ele,target,direction) {
+			clearInterval(ele.timer);
+			ele.timer = setInterval(function() {
+				if(direction ==="left") {
+					var speed = (target - ele.offsetLeft)/10;
+					speed = speed > 0?Math.ceil(speed):Math.floor(speed);
+					ele.style.left = ele.offsetLeft + speed + "px";
+					// console.log(1);检测定时器是否停止
+					if(Math.abs(target - ele.offsetLeft) <= Math.abs(speed)) {
+						ele.style.left = target + "px";
+						clearInterval(ele.timer);
+					}
+				}else if(direction === "top") {
+					var speed = (target - ele.offsetTop)/10;
+					speed = speed > 0?Math.ceil(speed):Math.floor(speed);
+					ele.style.top = ele.offsetTop + speed + "px";
+					// console.log(1);检测定时器是否停止
+					if(Math.abs(target - ele.offsetTop) <= Math.abs(speed)) {
+						ele.style.top = target + "px";
+						clearInterval(ele.timer);
+					}
+				}
+			},15)	
+		}
+	</script>
+</body>
+</html>

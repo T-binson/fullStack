@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>upload files</title>
+</head>
+<body>
+	<input type="file" id="file" multiple="true">
+	<input type="button" value="upload" id="upload">
+
+	<script>
+		let f1 = document.getElementById('file');
+		let btn = document.getElementById('upload');
+
+		btn.onclick = function() {
+			let xml = new XMLHttpRequest();
+			xml.open('POST', './upload', true);
+			let formData = new FormData();
+			Array.from(f1.files).forEach((file) => {
+				formData.append('f1', file);
+			});
+			xml.send(formData);
+			xml.onreadystatechange = function() {
+				if (xml.readyState === 4) {
+					if (xml.status >= 200 && xml.status < 300 || xml.status === 304) {
+						alert('succeed');
+					}
+				}
+			};
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>pie</title>
+</head>
+<body>
+	<svg width="800" height="600"></svg>
+
+	<script>
+		let svg = document.getElementsByTagName('svg')[0];
+		let path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+
+		function d2a(deg) {
+			return deg * Math.PI /180;
+		}
+		function a2d(arc) {
+			return arc * 180 /Math.PI;
+		}
+		let cx = 200, cy = 200, r = 100, deg1 = 30, deg2 = 380;
+		let x1 = cx + Math.sin(d2a(deg1)) * r;
+		let y1 = cy - Math.cos(d2a(deg1)) * r;
+		let x2 = cx + Math.sin(d2a(deg2)) * r;
+		let y2 = cy - Math.cos(d2a(deg2)) * r;
+		path.style.stroke = 'red';
+		path.style.fill = 'none';
+		path.setAttribute('d', `M ${cx},${cy} L ${x1},${y1} A ${r} ${r} 0 ${deg2 - deg1 > 180 ? 1:0} 1 ${x2} ${y2} Z`);
+
+		svg.appendChild(path);
+	</script>
+</body>
+</html>

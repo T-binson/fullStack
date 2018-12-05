@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>react</title>
+	<script src="./babel.min.js"></script>
+	<script src="./react.development.js"></script>
+	<script src="./react-dom.development.js"></script>
+	<style>
+		.red {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<div class="app"></div>
+
+	<script type="text/babel">
+		let app = document.getElementsByTagName('div')[0];
+		// console.log(ReactDOM);
+		ReactDOM.render(
+			<div>
+				<span>app</span>
+				<span className='red'>className</span>
+				<br />
+				<label htmlFor="user">username</label>
+				<input type="text" id='user' />
+			</div>,
+			app
+		);
+	</script>
+</body>
+</html>

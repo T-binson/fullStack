@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ejs</title>
+</head>
+<body>
+	<!-- 
+		: 等号表示转义输出 
+		: 减号表示原样输出
+	 -->
+	<nav>
+	<ul>
+	
+		<li>home</li>
+	
+		<li>news</li>
+	
+		<li>sports</li>
+	
+		<li>study</li>
+	
+		<li>about</li>
+	
+	</ul>
+</nav>
+	<table border="1" width="100%">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>username</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+			
+			<tr class="last">
+			
+				<td>23b09862b1784b75ad497ed8e48c8eac</td>
+				<td>tom2018</td>
+			</tr>
+			
+		</tbody>
+	</table>
+	<div>&ambp;2018 ejs template footer</div>
+</body>
+</html>

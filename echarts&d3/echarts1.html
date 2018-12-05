@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>echarts</title>
+	<style>
+		#box {
+			width: 800px;
+			height: 600px;
+		}
+	</style>
+	<script src="./echarts.js"></script>
+	<script>
+		// let $ = document.getElementById();
+		window.onload = function() {
+			let box = document.getElementById('box');
+			let options = {
+				title: {
+					text: 'beijing activity',
+					textStyle: {
+						color: '#f40',
+						align: 'center'
+					},
+					left: 'center'
+				},
+				legend: {
+					type: 'plain',
+					show: true,
+					right: '20'
+				},
+				tooltip: {
+					show: true,
+					trigger: 'axis',
+					axisPointer: {
+						type: 'shadow'
+					}
+				},
+				xAxis: [
+					{
+						type: 'category',
+						data: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
+						axisTick: {
+							alignWithLabel: true
+						}
+					}
+				],
+				yAxis: [{
+					type: 'value',
+
+				}],
+				series: [
+					{
+						name: 'strip',
+						type: 'bar',
+						barWidth: '50%',
+						data: [10, 52, 77, 190, 32, 280, 520]
+					}
+				],
+				grid: {
+					left: '3%',
+					right: '4%',
+					bottom: '3%',
+					containLabel: true
+				}
+			}
+			let myChart = echarts.init(box);
+			myChart.setOption(options);
+		}
+	</script>
+</head>
+<body>
+	<div id="box"></div>
+</body>
+</html>

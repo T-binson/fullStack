@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>google icon</title>
+</head>
+<body>
+	<canvas id="can"></canvas>
+
+	<script type="text/javascript">
+		var can = document.getElementById('can');
+		var ctx = can.getContext('2d');
+		can.width = 500;
+		can.height = 500;
+
+		//function: calculate the angle
+		function radian(angle) {
+			return Math.PI/180*angle;
+		}
+
+		ctx.beginPath();
+		ctx.moveTo(90,120);
+		ctx.arc(120,100,50,radian(-30),radian(210),true);
+		ctx.fillStyle = "#f00";
+		ctx.fill();
+
+		ctx.beginPath();
+		ctx.moveTo(125,80);
+		ctx.arc(120,100,50,radian(-30),radian(90));
+		ctx.fillStyle = "#ff0";
+		ctx.fill();
+
+		ctx.beginPath();
+		ctx.moveTo(130,120);
+		ctx.arc(120,100,50,radian(90),radian(210));
+		ctx.fillStyle = "#0f0";
+		ctx.fill();
+
+		ctx.beginPath();
+		ctx.arc(120,100,20,radian(0),radian(360));
+		ctx.fillStyle = "#00f";
+		ctx.strokeStyle = "#fff";
+		ctx.lineWidth = 2;
+		ctx.fill();
+		ctx.stroke();
+
+		ctx.textAlign = "left";
+		ctx.font = "20px Microsoft YaHei";
+		ctx.textBaseline = "bottom";
+		ctx.fillText("Hello,2018!",205,200);
+		ctx.beginPath();
+		ctx.arc(200,200,5,0,Math.PI*2);
+		ctx.fill();
+
+	</script>
+</body>
+</html>

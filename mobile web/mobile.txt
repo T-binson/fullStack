@@ -1,0 +1,135 @@
+1.viewport
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+2.移动web样式
+	点击高亮效果
+	在移动端浏览器会遇见点击出现高亮的效果，在某项项目是不需要这个默认的效果的。那么我们通常会把这个点击的颜色设置成透明。
+		css代码
+		-webkit-tap-highlight-color:transparent;/*清除点击高亮效果*/
+
+	盒子模型
+	通过css3的新属性box-sizing我们能够让盒子有限顾及自己的尺寸而不是内容,避免出现多余的滚动条
+		css代码
+		/*设置宽度以边框开始计算*/
+		-webkit-box-sizing: border-box;/*webkit内核兼容性写法*/
+		box-sizing: border-box;
+
+	Input默认样式清除
+	在移动设备的浏览器中input标签一般会有默认的样式,通过border=none,outline=none无法去除,比如立体效果,3d效果等等,我们需要添加下列样式
+		css代码
+		/*在移动端清除浏览器默认样式*/
+		-webkit-appearance: none;
+
+	最小宽度和最大的宽度
+	考虑到移动设备在大尺寸的的屏幕不会过度缩放，失去清晰度,在小尺寸的屏幕中不会出现布局错乱的问题
+		css代码
+		注：下列代码取值不是固定的,根据实际情况需要进行调整
+		max-width: 640px;  /*在行业当中的移动端的设计图一般使用的是640px*/
+		min-width: 300px;  /*在移动设备当中现在最小的尺寸320px*/
+
+3.touch事件
+	移动端使用的是touch事件,但是并不能直接通过ontouch等语法访问,需要使用addEventListener进行绑定
+
+	四个主要事件
+		touchstart:手指触摸时触发
+		touchmove:手指在屏幕上滑动时连续触发
+		touchend:当手指离开屏幕时触发。
+		touchcancel:系统停止跟踪触摸时候会触发。(这个事件使用较少,了解即可)
+
+	事件参数e中能够获取移动的一些属性:
+		dom.addEventListener('touchstart',function(e){
+	    console.log(e.targetTouches); //目标元素的所有当前触摸
+	    console.log(e.changedTouches);//最新更改的所有触摸
+	    console.log(e.touches);//所有的触摸
+		})
+
+4.屏幕适配
+	1).rem适配
+		a.设置<meta name = 'viewport' content='width=device-width,initial-scale=1.0'>
+		b.设置页面元素宽度单位为rem或em
+			em 相对长度单位，其参照当前元素字号大小，如果当前元素未设置字号则会继承其祖先元素字号大小 例如 .box {font-size: 16px;} 则 1em = 16px .box {font-size: 32px;} 则 1em = 32px，0.5em = 16px 
+			rem 相对长度单位，其参照根元素(html)字号大小 例如 html {font-size: 16px;} 则 1rem = 16px html {font-size: 32px;} 则 1rem = 32px，0.5rem = 16px;  注：所有浏览器默认字号都是16px（某些安卓手机可以调置系统字号后，浏览器默认字号会受影响）
+		c.获取视窗宽度
+			document.documentElement.clientWidth || document.body.clientWidth
+			setting: document.getElementByTagName('html')[0].style.fontSize = 自定义值(根据视窗宽度计算client/10)
+			sass计算(示例)：
+			@function px2rem($px) {
+				$rem: 37.5px;
+				@return ($px / $rem) + rem;
+			}
+			.hello {
+				width: px2rem(100px);
+				height: px2rem(200px);
+				&.world {
+					width: px2rem(50px);
+				}
+			}
+
+5.媒体查询
+	1)媒体类型：all,print,screen(常用)
+	2)媒体特性
+	3)关键字
+		a、and 可以将多个媒体特性连接到一起，相当于“且”的意思。
+		b、not 排除某个媒体类型，相当于“非”的意思，可以省略。
+		c、only指定某个特定的媒体类型，可以省略。
+	4)引入方式
+		a.link方法，如<link href='./xxx.css' media='only screen and (max-width: 320px)'>
+		b.@media方法
+	5)常用特性
+		a、width / height 完全等于layout viewport
+		b、max-width / max-height 小于等于layout viewport
+		c、min-width / min-height 大于等于layout viewport
+		d、device-width / device-height 完全等于ideal viewport
+		e、orientation: portrait | landscape 肖像/全景模式
+
+6.css预处理器(less)
+	1)install
+		1、安装Nodejs环境 Node Package Manager 
+		2、打开控制台（cmd），执行npm install -g less (验证 lessc -v)
+		3、执行 npm install -g less-plugin-clean-css
+		4、命令行编译 lessc path/xxx.less path/xxx.css
+	
+	2)compile编译
+		一般都会借助于编辑器插件来完成编译任务，以sublime_text为例
+		1、ctrl+shit+p打开命令面板
+		2、输入install package然后回车
+		3、安装 LESS、lessc、Less2Css三个插件
+		4、alt+s快捷键即可实现编译
+	
+	3)语法
+		1、变量
+		格式：@变量名：值，定义完成后可重复使用
+			@color: red; //定义变量
+			.nav {
+				color: @color; //使用变量
+			}
+		2、混合
+		想使用函数一样使用css
+			.box-sizing () {	//定义一个函数
+				box-sizing: border-box;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				-ms-box-sizing: border-box;
+			}
+			.box {
+				.box-sizing;	//使用函数
+			}
+		3、嵌套
+		方便管理css层级关系
+			.header {
+				height: 20px;
+				.nav {
+					overflow: hidden;
+					a {
+						display: block;
+						float: left;
+					}
+				}
+			}
+
+	4)浏览器中实现实时编译
+		1、下载然后引入less.js
+		2、引入xx.less文件，如：
+		<link rel="stylesheet/less" type="text/css" href="styles.less" />
+		注意：rel属性必须指定成stylesheet/less，并且styles.less要先于less.js引入。
+		必须以服务器方式访问，可以放到study目录下，或者webstrom自带服务器功能

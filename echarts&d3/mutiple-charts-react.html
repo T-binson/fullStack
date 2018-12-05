@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>mutiple-charts reaction</title>
+	<script src="./echarts.js"></script>
+	<style>
+		.box {
+			width: 900px;
+			height: 600px;
+			border: 1px solid #000;
+			box-sizing: border-box;
+		}
+		.box1, .box2 {
+			width: 50%;
+			height: 100%;
+			float: left;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="box1"></div>
+		<div class="box2"></div>
+	</div>
+
+	<script>
+		let $ = document.getElementsByClassName.bind(document);
+		let box1 = $('box1')[0], box2 = $('box2')[0];
+		let echarts1 = echarts.init(box1);
+
+		let provinces = [
+			{
+				name: '广东',
+				value: 815,
+				cities: [{
+					name: '广州',
+					value: 134
+				},{
+					name: '深圳',
+					value: 123
+				},{
+					name: '珠海',
+					value: 54
+				},{
+					name: '东莞',
+					value: 66
+				}]
+			},
+			{
+				name: '浙江',
+				value: 765,
+				cities: [{
+					name: '杭州',
+					value: 120
+				},{
+					name: '宁波',
+					value: 87
+				},{
+					name: '温州',
+					value: 76
+				},{
+					name: '金华',
+					value: 55
+				}]
+			},
+			{
+				name: '江苏',
+				value: 689,
+				cities: [{
+					name: '南京',
+					value: 117
+				},{
+					name: '无锡',
+					value: 76
+				},{
+					name: '常州',
+					value: 56
+				},{
+					name: '太湖',
+					value: 23
+				}]
+			}
+		];
+		let options = {
+			title: {
+				text: '各省数据',
+				left: 'center'
+			},
+			series: [{
+				name: '各省比例',
+				type: 'pie',
+				radius: '50%',
+				center: ['40%', '40%'],
+				data: provinces.map(item => {
+					return {name: item.name, value: item.value};
+				})
+			}]
+		};
+		echarts1.setOption(options);
+		function city(name) {
+			provinces.map(function(item) {
+				if (name === item.name) {
+					let echarts2 = echarts.init(box2);
+					let options1 = {
+						title: {
+							text: item.name + '省城市数据',
+							left: 'center'
+						},
+						xAxis: [{
+							type: 'category',
+							data: item.cities.map(city => city.name)
+						}],
+						yAxis: [{
+							type: 'value'
+						}],
+						series: [{
+							type: 'bar',
+							data: item.cities
+						}]
+					};
+					echarts2.setOption(options1);
+				}
+			});
+		}
+		city(provinces[0].name);
+		echarts1.on('click', function(e) {
+			// console.log(e);
+			city(e.name);
+		});
+	</script>
+</body>
+</html>

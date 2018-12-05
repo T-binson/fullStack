@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>pie</title>
+</head>
+<body>
+	<canvas id="canvas" width="800", height="600">your browser do not support canvas.</canvas>
+
+	<!-- <script>
+		function degreeToArc(deg) {
+			return deg*Math.PI/180;
+		}
+		function arcToDegree(arc) {
+			return arc*180/Math.PI;
+		}
+		let canvas = document.getElementById('canvas');
+		let gd = canvas.getContext('2d');
+		let r = 100;
+		let x = Math.sin(degreeToArc(30)) * 100 + 300;
+		let y = 300 - r;
+	
+		gd.moveTo(300, 300);
+		gd.lineTo(300, y);
+		gd.arc(300, 300, r, degreeToArc(270), degreeToArc(300), false);
+		gd.closePath();
+		gd.strokeStyle = '#f30';
+		gd.stroke();
+	
+		gd.beginPath();
+		gd.moveTo(300, 300);
+		gd.lineTo(400, 300);
+		gd.arc(300, 300, r, degreeToArc(0), degreeToArc(30), false);
+		gd.closePath();
+		gd.stroke();
+	
+		gd.beginPath();
+		gd.moveTo(300, 300);
+		gd.lineTo(300, 400);
+		gd.arc(300, 300, r, degreeToArc(90), degreeToArc(120), false);
+		gd.closePath();
+		gd.stroke();
+	
+		gd.beginPath();
+		gd.moveTo(300, 300);
+		gd.lineTo(200, 300);
+		gd.arc(300, 300, r, degreeToArc(180), degreeToArc(210), false);
+		gd.closePath();
+		// gd.stroke();
+	
+		gd.fillStyle = '#0f0';
+		gd.fill();
+	</script> -->
+
+	<script>
+		function degreeToArc(deg) {
+			return deg*Math.PI/180;
+		}
+		function arcToDegree(arc) {
+			return arc*180/Math.PI;
+		}
+		let canvas = document.getElementById('canvas');
+		let arr = [10, 30, 50, 70, 60];
+		let result = arr.reduce(function(item1, item2) {
+			return item1 + item2;
+		});
+		let angles = arr.map(function(item) {
+			return item/result * 360;
+		});
+
+		let gd = canvas.getContext('2d');
+
+		function pie(x, y, r, startang, endang, color) {
+			let startX = Math.sin(degreeToArc(startang)) * r + x;
+			let startY = y - Math.cos(degreeToArc(startang)) * r
+
+			gd.beginPath();
+			gd.moveTo(x, y);
+			gd.lineTo(startX, startY);
+			gd.arc(x, y, r, degreeToArc(startang - 90), degreeToArc(endang - 90), false);
+			gd.closePath();
+			// gd.stroke();
+		
+			gd.fillStyle = color;
+			gd.fill();
+		};
+		let last = 0;
+		let colors = ['#f40', '#0f0', '#00f', '#ff0', '#0ff'];
+		angles.forEach((item, index) => {
+			pie(300, 300, 100, last, last+item, colors[index]);
+			last += item;
+		});
+		
+		gd.font = '50px Microsoft YaHui';
+		gd.strokeText('abc', 100, 200);
+		gd.fillText('abc', 100, 250);
+	</script>
+</body>
+</html>

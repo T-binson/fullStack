@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>animate</title>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		body {
+			background-color: rgba(0,0,0,.8);
+		}
+		.nav {
+			width: 810px;
+			height: 45px;
+			margin: 100px auto;
+			background-color: #fff;
+			border-radius: 8px;
+			position: relative;
+		}
+		span {
+			position: absolute;
+			width: 82px;
+			height: 45px;
+			border-radius: 8px;
+			background-color: skyblue;
+		}
+		ul {
+			list-style: none;
+			width: 100%;
+			position: relative;
+		}
+		li {
+			float: left;
+			height: 45px;
+			width: 82px;
+			line-height: 45px;
+			text-align: center;
+			font-size: 16px;
+			/*color: #424242;*/
+		}
+		a {
+			display: block;
+			width: 100%;
+			height: 100%;
+			text-decoration: none;
+			color: #424242;
+		}
+	</style>
+</head>
+<body>
+	<div class="nav">
+		<span></span>
+		<ul>
+			<li><a href="#">首页</a></li>
+			<li><a href="#">全部新闻</a></li>
+			<li><a href="#">北京校区</a></li>
+			<li><a href="#">上海校区</a></li>
+			<li><a href="#">广州校区</a></li>
+			<li><a href="#">深圳校区</a></li>
+			<li><a href="#">关于公司</a></li>
+		</ul>
+	</div>
+	<script>
+		var box = document.getElementsByClassName('nav')[0];
+		var move = box.children[0];
+		var li = document.getElementsByTagName('li');
+		var liWidth = li[0].offsetWidth;
+		var len = li.length;
+		var count = 0;
+		for (var i = 0; i < len; i++) {
+			li[i].index = i;//自定义属性，并绑定到alink上，方便以后使用
+			li[i].onmouseover = function() {
+				animate(move,this.index*liWidth,"left");
+
+			};
+			li[i].onclick = function() {
+				count = this.index;
+				animate(move,count*liWidth,"left");
+			}
+			li[i].onmouseout = function() {
+				animate(move,count*liWidth,"left");
+			}
+		}
+		// 缓动动画框架
+		function animate(ele,target,direction) {
+			clearInterval(ele.timer);
+			ele.timer = setInterval(function() {
+				if(direction ==="left") {
+					var speed = (target - ele.offsetLeft)/10;
+					speed = speed > 0?Math.ceil(speed):Math.floor(speed);
+					ele.style.left = ele.offsetLeft + speed + "px";
+					// console.log(1);检测定时器是否停止
+					if(Math.abs(target - ele.offsetLeft) <= Math.abs(speed)) {
+						ele.style.left = target + "px";
+						clearInterval(ele.timer);
+					}
+				}else if(direction === "top") {
+					var speed = (target - ele.offsetTop)/10;
+					speed = speed > 0?Math.ceil(speed):Math.floor(speed);
+					ele.style.top = ele.offsetTop + speed + "px";
+					// console.log(1);检测定时器是否停止
+					if(Math.abs(target - ele.offsetTop) <= Math.abs(speed)) {
+						ele.style.top = target + "px";
+						clearInterval(ele.timer);
+					}
+				}
+			},15)	
+		}
+	</script>
+</body>
+</html>

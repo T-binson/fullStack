@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas</title>
+</head>
+<body>
+	<canvas id="canvas" width="800", height="600">your browser do not support canvas.</canvas>
+
+	<script>
+		let canvas = document.getElementById('canvas');
+		let gd = canvas.getContext('2d');
+
+		let x = 250, y = 250, r = 100;
+		canvas.onmousemove = function(ev) {
+			let distance = Math.sqrt(Math.pow((ev.offsetX - x), 2) + Math.pow((ev.offsetY - y), 2));
+			gd.beginPath();
+			gd.arc(x, y, r, 0, 2*Math.PI, false);
+			if (distance < r) {
+				gd.fillStyle = '#f40';
+			} else {
+				gd.fillStyle = '#000';
+			}
+			gd.fill();
+		}
+	</script>
+</body>
+</html>

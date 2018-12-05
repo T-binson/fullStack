@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas</title>
+</head>
+<body>
+	<canvas id="canvas" width="800", height="600">your browser do not support canvas.</canvas>
+
+	<script>
+		let canvas = document.getElementById('canvas');
+		let gd = canvas.getContext('2d');
+
+		gd.rect(100, 100, 300, 300);
+		gd.strokeStyle = '#f30';
+		gd.stroke();
+
+		gd.fillStyle = '#0f0';
+		gd.fill();
+	</script>
+</body>
+</html>

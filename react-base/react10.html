@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ref</title>
+	<script src="./babel.min.js"></script>
+	<script src="./react.development.js"></script>
+	<script src="./react-dom.development.js"></script>
+</head>
+<body>
+	<div class="box"></div>
+
+	<script type="text/babel">
+		let b = null;
+		class C1 extends React.Component {
+			constructor() {
+				super();
+				this.state = {a: 0};
+				window.b = () => {
+					this.setState({a: this.state.a+1});
+				};
+			}
+			render() {
+				return <div>
+					{this.state.a}
+				</div>
+				;
+			}
+		}
+		class C2 extends React.Component {
+			constructor() {
+				super()
+			}
+			fn() {
+				window.b();
+			}
+			render() {
+				return <div>
+					<input type="button" value='button' onClick={this.fn.bind(this)} />
+				</div>
+				;
+			}
+		}
+		let box = document.getElementsByClassName('box')[0];
+		ReactDOM.render(
+			<div>
+				<C1 />
+				<C2 />
+			</div>,
+			box
+		)
+	</script>
+</body>
+</html>

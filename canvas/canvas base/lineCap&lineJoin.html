@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>lineCap&lineJoin</title>
+</head>
+<body>
+	<canvas id="can"></canvas>
+
+	<script type="text/javascript">
+		var can = document.getElementById('can');
+		var ctx = can.getContext("2d");
+		can.width = 500;
+		can.height = 500;
+
+		ctx.beginPath();
+		ctx.moveTo(0,0);
+		ctx.lineTo(500,0);
+		ctx.lineTo(500,500);
+		ctx.lineTo(0,500);
+		ctx.closePath();
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.moveTo(20,50);
+		ctx.lineTo(220,50);
+		ctx.strokStyle = "#000";
+		ctx.lineWidth = 20;
+		//lineCap:butt
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.moveTo(20,20);
+		ctx.lineTo(220,20);
+		ctx.strokStyle = "#000";
+		ctx.lineWidth = 20;
+		// lineCap:round
+		ctx.lineCap = "round";
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.moveTo(20,80);
+		ctx.lineTo(220,80);
+		ctx.strokStyle = "#000";
+		ctx.lineWidth = 20;
+		// lineCap:square
+		ctx.lineCap = "square";
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.moveTo(70,110);
+		ctx.lineTo(120,200);
+		ctx.lineTo(170,110);
+		ctx.strokStyle = "#000";
+		ctx.lineWidth = 20;
+		//lineJoin:bevel
+		ctx.lineJoin = "bevel";
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.moveTo(50,140);
+		ctx.lineTo(120,250);
+		ctx.lineTo(190,140);
+		ctx.strokStyle = "#000";
+		ctx.lineWidth = 20;
+		//lineJoin:miter
+		ctx.lineJoin = "miter";
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.moveTo(30,170);
+		ctx.lineTo(120,300);
+		ctx.lineTo(210,170);
+		ctx.strokStyle = "#000";
+		ctx.lineWidth = 20;
+		//lineJoin:round
+		ctx.lineJoin = "round";
+		ctx.stroke();
+
+	</script>
+</body>
+</html>

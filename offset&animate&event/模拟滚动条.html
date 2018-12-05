@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>scroll bar</title>
+	<style>
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+		.box {
+			width: 250px;
+			height: 500px;
+			border: 1px solid #ccc;
+			margin: 50px auto;
+			overflow: hidden;
+			position: relative;
+		}
+		.content {
+			padding: 15px;
+			margin-right: 20px;
+		}
+		.bar {
+			position: absolute;
+			right: 0px;
+			top: 0px;
+			width: 20px;
+			height: 500px;
+			background-color: #ccc;
+		}
+		.scrollbar {
+			width: 100%;
+			height: 100px;
+			background-color: #f40;
+			border-radius: 20px;
+			position: absolute;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="content">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, autem odio minus obcaecati ratione quidem temporibus, natus omnis ut ipsam nam alias voluptatibus, repellendus sint nisi error ipsa! At autem deserunt sequi obcaecati. Quas vitae amet quis non laborum sed dolor assumenda, veritatis repellat sunt molestias quae dolorem totam magni.
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id beatae nihil autem officiis illum ratione nesciunt omnis culpa harum in animi repudiandae doloremque aliquid suscipit, deleniti eveniet cum, nisi aliquam tenetur. Debitis ratione cupiditate dicta consequuntur vitae reprehenderit esse. Ex ad tenetur, porro, est rerum laboriosam ut a itaque illo.
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt aspernatur pariatur laudantium dolores modi. Suscipit quisquam dolorum molestias ipsum, numquam unde quo illum perferendis beatae aliquam nisi quibusdam sit adipisci veritatis non. Nulla quo ut repudiandae expedita unde obcaecati itaque modi eligendi ab, quaerat aliquam numquam qui, accusamus, possimus. Doloribus.
+		</div>
+		<div class="bar">
+			<div class="scrollbar"></div>
+		</div>
+	</div>
+	
+	<script>
+		var box = document.getElementsByTagName('div')[0];
+		var content = box.children[0];
+		// console.log(content);
+		var bar = box.children[1];
+		var scrollbar = bar.children[0];
+		var rate = content.offsetWidth/box.offsetWidth;
+		scrollbar.onmousedown = function(event) {
+			var event = event || window.event;
+			var pageY = event.pageY || getscroll().top + event.clientY;
+			var y = pageY - this.offsetTop;
+			box.onmousemove = function(event) {
+				var event = event || window.event;
+				var yy = event.pageY - y || getScroll().top + event.clientY - y;
+				if (yy < 0) {
+					yy = 0;
+				}else if(yy > bar.offsetHeight - scrollbar.offsetHeight) {
+					yy = bar.offsetHeight - scrollbar.offsetHeight;
+				}
+				scrollbar.style.top = yy + "px";
+				content.style.marginTop = -yy*rate + "px";
+				window.getSelection?window.getSelection().removeAllRanges():docuemnt.selection.empty();
+			}
+		}
+		document.onmouseup = function() {
+			box.onmousemove = null;
+		}
+		function getScroll() {
+			if (window.pageYOffset) {
+				return {
+					"top": window.pageYOffset,
+					"left": window.pageXOffset
+				}
+			}else if(document.compatMode === "CSS1Compat") {
+				return {
+					"top": document.documentElement.scrollTop,
+					"left": document.documentElement.scrollLeft
+				}
+			}else {
+				return {
+					"top": document.body.scrollTop,
+					"left": document.body.scrollLeft
+				}
+			}
+		}
+	</script>
+</body>
+</html>

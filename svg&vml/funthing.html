@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>fun thing</title>
+</head>
+<body>
+	<script src="./raphael.js"></script>
+	<script>
+		let paper = Raphael(0,0, 800,600);
+		let rect = paper.rect(100,100, 200,100);
+		rect.attr('fill', 'yellow');
+		rect.click(function() {
+			rect.animate({'fill': 'red', 'stroke-width': '20'}, 2000);
+		});
+		let path = paper.path('M 100 220 L 300 220 300 300 100 300 Z');
+		path.attr('fill', 'red');
+		path.hover(function() {
+			path.animate({'path': 'M 200 220 L 200 220 300 300 100 300 Z'}, 700, 'bounce');
+		}, function() {
+			path.animate({'path': 'M 100 220 L 300 220 300 300 100 300 Z'}, 700, 'bounce');
+		});
+
+		paper.path('M 400 100 L 450 100 M 400 120 L 450 120 M 400 140 L 450 140').attr('stroke-width', 5).hover(function() {
+			this.animate({'path': 'M 400 100 L 450 140 M 425 120 L 425 120 M 400 140 L 450 100'}, 500);
+		},function() {
+			this.animate({'path': 'M 400 100 L 450 100 M 400 120 L 450 120 M 400 140 L 450 140'}, 500);
+		});
+
+		paper.path('M 400 220 L 500 220').attr({'stroke-dasharray': '-.', 'stroke-width': 5});
+	</script>
+</body>
+</html>

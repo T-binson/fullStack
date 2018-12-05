@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Touch Event</title>
+	<style>
+		html,body {
+			width: 100%;
+			height: 100%;
+		}
+		div {
+			width: 300px;
+			height: 300px;
+			background-color: #f40;
+		}
+	</style>
+</head>
+<body>
+	<div></div>
+	<script>
+		window.onload = function() {
+			var div = document.getElementsByTagName('div')[0];
+			var startX,moveX,startY,moveY,distanceX=0,distanceY=0;
+			document.body.addEventListener('touchstart',function(Event) {
+				// console.log('touchStart');
+				// console.log(Event);
+				// console.log(Event.touches[0].clientX);
+				startX = Event.touches[0].clientX;
+				startY = Event.touches[0].clientY;
+				// console.log(startX);
+			});
+			document.body.addEventListener('touchmove',function(Event) {
+				// console.log('touchMove');
+				// console.log(Event);
+				// console.log(Event.touches[0].clientX);
+				moveX = Event.touches[0].clientX-startX;
+				moveY = Event.touches[0].clientY -startY;
+				// console.log(moveX);
+				div.style.transform='translate('+(moveX+distanceX)+'px,'+(moveY+distanceY)+'px)';
+			});
+			document.body.addEventListener('touchend',function(Event) {
+				// console.log('touchEnd');
+				// console.log(Event);
+				distanceX+=moveX;
+				distanceY+=moveY;
+			});
+		};
+	</script>
+</body>
+</html>

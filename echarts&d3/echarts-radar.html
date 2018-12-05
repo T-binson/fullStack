@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>radar</title>
+	<script src="./echarts.js"></script>
+	<style>
+		.box {
+			width: 800px;
+			height: 600px;
+			border: 1px solid #000;
+		}
+	</style>
+</head>
+<body>
+	<div class="box"></div>
+
+	<script>
+		function $(selector) {
+			return document.getElementsByClassName(selector);
+		}
+		let box = $('box')[0];
+		let radar = echarts.init(box);
+
+		let options = {
+			title: {
+				text:'hero roles',
+				left: 'center'
+			},
+			legend: {
+				data: ['hero', 'enemy'],
+				orient: 'vertical',
+				right: 20
+			},
+			radar: {
+				name: {
+					textStyle: {
+						color: '#fff',
+						backgroundColor: '#999',
+						borderRadius: 3,
+						padding: [3, 5]
+					}
+				},
+				indicator: [{
+					name: 'HP',
+					max: 999
+				},{
+					name: 'Attack',
+					max: 999
+				},{
+					name: 'Defend',
+					max: 99
+				},{
+					name: 'Magic',
+					max: 9999
+				},
+				{
+					name: 'Sleep',
+					max: 99},
+				{
+					name: 'Eat',
+					max: 999}
+				]
+			},
+			series: [{
+				name: 'roles comparation',
+				type: 'radar',
+				data: [
+					{
+						name: 'hero',
+						value: [998, 888, 80, 7777, 59, 899]
+					},
+					{
+						name: 'enemy',
+						value: [666, 678, 90, 8888, 89, 699]
+					}
+				]
+			}]
+		}
+		radar.setOption(options);
+	</script>
+</body>
+</html>

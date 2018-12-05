@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>websocket</title>
+	<style>
+		.me {
+			background: green;
+		}
+	</style>
+	<script src="http://localhost:3001/socket.io/socket.io.js"></script>
+	<script>
+		let socket = io.connect('ws://localhost:3001/');
+		window.onload = function() {
+			let user = document.getElementsByClassName('user')[0];
+			let pass = document.getElementsByClassName('pass')[0];
+			let reg = document.getElementsByClassName('reg')[0];
+			let login = document.getElementsByClassName('login')[0];
+			let mes = document.getElementsByClassName('msg')[0];
+			let send = document.getElementsByClassName('send')[0];
+			let msgbox = document.getElementsByClassName('msgbox')[0];
+			let cur_username = '';
+
+			reg.onclick = function() {
+				socket.emit('reg', user.value, pass.value);
+			};
+			socket.on('reg_ret', (code, msg) => {
+				if (code) {
+					alert(msg);
+				} else {
+					alert(msg);
+				}
+			});
+
+			login.onclick =function() {
+				socket.emit('login', user.value, pass.value);
+			};
+			socket.on('login_ret', (code, msg) => {
+				if (code) {
+					alert(msg);
+				} else {
+					cur_username = user.value;
+					alert(msg);
+				}
+			});
+
+			send.onclick = function() {
+				//it should check the state of logining
+				socket.emit('msg', cur_username, mes.value);
+			};
+			socket.on('msg_ret', (code, msg) => {
+				if (code) {
+					alert(msg);
+				} else {
+					let li = document.createElement('li');
+					li.innerHTML = `<h4>${cur_username}</h4><p>${mes.value}</p>`
+					li.className = 'me';
+					msgbox.appendChild(li);
+					mes.value = '';
+				}
+			});
+
+			socket.on('msg', (username, txt) => {
+				let li = document.createElement('li');
+				li.innerHTML = `<h4>${username}</h4><p>${txt}</p>`
+				msgbox.appendChild(li);
+			})
+		}
+	</script>
+</head>
+<body>
+	<p>username: <input type="text" name="username" class="user"></p>
+	<p>password: <input type="password" name="password" class="pass"></p>
+	<p><input type="submit" class="reg" value="reg"> <input type="submit" class="login" value="login"></p>
+	<textarea name="" id="" cols="30" rows="10" class="msg"></textarea>
+	<p><input type="button" value="send" class="send"></p>
+	<ul class="msgbox">
+	</ul>
+</body>
+</html>

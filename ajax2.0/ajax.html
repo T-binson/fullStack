@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax2.0</title>
+	<script>
+		window.onload = function() {
+			var send = document.getElementById('send');
+			send.onclick = function() {
+				var xml = new XMLHttpRequest();
+				var formData = new FormData();
+				formData.set('a', 12);
+				formData.append('a', 5);
+				xml.open('POST', '1.php', true);
+				xml.send(formData);
+				xml.onreadystatechange = function() {
+					if (xml.readyState === 4) {
+						if (xml.status >= 200 && xml.status < 300 || xml.status === 304) {
+							console.log(xml.responseText);
+						}
+					}
+				};
+			};
+		}
+	</script>
+</head>
+<body>
+	<input type="button" value="send" id="send">
+</body>
+</html>
